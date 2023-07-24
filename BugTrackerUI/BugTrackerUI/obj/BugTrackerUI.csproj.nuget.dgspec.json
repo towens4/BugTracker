@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\timow\\Documents\\DEMO PROJECTS\\Excercises\\BugTrackerUI\\BugTrackerUI\\BugTrackerUI.csproj": {}
+    "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\BugTrackerUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\timow\\Documents\\DEMO PROJECTS\\Excercises\\BugTrackerUI\\BugTrackerUI\\BugTrackerUI.csproj": {
+    "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\BugTrackerUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\timow\\Documents\\DEMO PROJECTS\\Excercises\\BugTrackerUI\\BugTrackerUI\\BugTrackerUI.csproj",
+        "projectUniqueName": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\BugTrackerUI.csproj",
         "projectName": "BugTrackerUI",
-        "projectPath": "C:\\Users\\timow\\Documents\\DEMO PROJECTS\\Excercises\\BugTrackerUI\\BugTrackerUI\\BugTrackerUI.csproj",
+        "projectPath": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\BugTrackerUI.csproj",
         "packagesPath": "C:\\Users\\timow\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\timow\\Documents\\DEMO PROJECTS\\Excercises\\BugTrackerUI\\BugTrackerUI\\obj\\",
+        "outputPath": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -64,6 +64,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[6.0.10, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             }
           },
           "imports": [
