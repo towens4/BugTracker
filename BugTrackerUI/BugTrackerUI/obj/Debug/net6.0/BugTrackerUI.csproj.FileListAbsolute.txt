@@ -141,3 +141,10 @@ C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\n
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.genruntimeconfig.cache
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\ref\BugTrackerUI.dll
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\libman.json
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\System.Net.Http.Json.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

@@ -1,3 +1,4 @@
+using BugTracker.Interfaces;
 using BugTracker.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ builder.Services.AddDbContext<BugTrackerDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("BugTrackerDB"));
 });
-
+builder.Services.AddScoped<IDbRepository, BugTrackerDbRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

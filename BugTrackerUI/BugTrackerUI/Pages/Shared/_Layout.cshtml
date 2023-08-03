@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<IdentityUser> signInManager;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,6 +28,11 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
+                    @if(signInManager.IsSignedIn(User))
+                    {
+                        @await Component.InvokeAsync("Application")
+                    }
+                    
                     <partial name="_LoginPartial" />
                 </div>
             </div>

@@ -4,9 +4,9 @@ namespace BugTracker.Interfaces
 {
     public interface IDbRepository
     {
-        List<Error> GetErrors(string userId, Guid applicationId);
+        List<Error> GetErrors(Guid appId);
         List<Application> GetApplications(string userId);
-        void AddApplication(string applicationName);
+        void AddApplication(Application applicationName);
         void AddError(Exception exception);
         void UpdateApplication(Application application);
         void UpdateError(Exception exception);
