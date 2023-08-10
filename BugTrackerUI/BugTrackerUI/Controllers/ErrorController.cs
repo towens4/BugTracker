@@ -29,11 +29,11 @@ namespace BugTrackerUI.Controllers
         [HttpGet]
         public IActionResult CreateApplication()
         {
-            Application application = new Application();
+            Models.ApplicationViewModel application = new Models.ApplicationViewModel();
             return View(application);
         }
 
-        public IActionResult CreateApplication(Application application)
+        public IActionResult CreateApplication(Models.ApplicationViewModel application)
         {
             if(!ModelState.IsValid)
                 return View();
@@ -41,6 +41,23 @@ namespace BugTrackerUI.Controllers
             ApiHandler.AddApplication(_httpClient, application);
 
             return View();
+        }
+
+        [HttpPost("/Error/AddApplication")]
+        public async Task<ActionResult> AddApplication(string data)
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            /*IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
+            Application application = new Application() { ApplicationId = new Guid(), ApplicationName = data, UserId = user.Id };
+            ApiHandler.AddApplication(_httpClient, application);*/
+            //return View();
         }
     }
 }

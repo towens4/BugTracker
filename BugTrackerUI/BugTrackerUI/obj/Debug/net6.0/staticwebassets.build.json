@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qzpc+nTq7Qj1OjK0VwS8pn1S0AG8fQzB0Ff9PGdo/OY=",
+  "Hash": "FAGinKjQw06SzdIF1mGoD7xMKPSJa9scDEORMozbm50=",
   "Source": "BugTrackerUI",
   "BasePath": "_content/BugTrackerUI",
   "Mode": "Default",
@@ -1103,6 +1103,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\wwwroot\\js\\FormHandler.js",
+      "SourceId": "BugTrackerUI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\wwwroot\\",
+      "BasePath": "_content/BugTrackerUI",
+      "RelativePath": "js/FormHandler.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\FormHandler.js"
     },
     {
       "Identity": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\wwwroot\\js\\site.js",

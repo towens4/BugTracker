@@ -1,4 +1,4 @@
-﻿namespace BugTrackerUI.Models
+﻿namespace BugTrackerUI.Models.ViewModels
 {
     public class ApplicationViewModel
     {

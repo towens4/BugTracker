@@ -22,7 +22,7 @@ namespace BugTrackerUI.ViewComponents
         [HttpGet]
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            IEnumerable<Application> applications = null;
+            IEnumerable<ApplicationViewModel> applications = null;
             IdentityUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
             var userId = currentUser.Id;
 
@@ -38,7 +38,7 @@ namespace BugTrackerUI.ViewComponents
 
             if (response.IsSuccessStatusCode)
             {
-                applications = await response.Content.ReadFromJsonAsync<List<Application>>();
+                applications = await response.Content.ReadFromJsonAsync<List<ApplicationViewModel>>();
             }
             else
             {
@@ -46,7 +46,7 @@ namespace BugTrackerUI.ViewComponents
             }
 
             if(applications == null)
-                return View(new List<Application>());
+                return View(new List<ApplicationViewModel>());
 
             return View(applications);
         }

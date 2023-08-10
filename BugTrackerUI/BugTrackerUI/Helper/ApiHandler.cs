@@ -1,13 +1,16 @@
 ﻿using BugTrackerUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Text;
+using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BugTrackerUI.Helper
 {
     public class ApiHandler
     {
 
-        public async Task<IEnumerable<Application>> LoadApplications(string userId)
+        public async Task<IEnumerable<ApplicationViewModel>> LoadApplications(string userId)
         {
             string url = "";
 
@@ -20,7 +23,7 @@ namespace BugTrackerUI.Helper
             {
                 if(response.IsSuccessStatusCode)
                 {
-                    List<Application> applications = await response.Content.ReadAsAsync<List<Application>>();
+                    List<ApplicationViewModel> applications = await response.Content.ReadAsAsync<List<ApplicationViewModel>>();
                     return applications;
                 }
                 else
@@ -32,26 +35,22 @@ namespace BugTrackerUI.Helper
             
         }
 
-        public static async void AddApplication(IHttpClientFactory httpClient, Application application)
+        public static async void AddApplication(IHttpClientFactory httpClient, ApplicationViewModel application)
         {
             string url = "";
 
             if(application != null)
-                url = ($"https://localhost:44379/api/error/application");
+                url = ($"https://localhost:7240/api/error/application");
+
+            var applicationJson = new StringContent(JsonSerializer.Serialize(application), Encoding.UTF8, Application.Json);
 
             var request = new HttpRequestMessage(HttpMethod.Post, url);
 
             var client = httpClient.CreateClient();
-            //client.BaseAddress = new Uri(url);
-            //HttpResponseMessage response = client.PostAsJsonAsync<Application>("application", application);
-            var postTask = client.PostAsJsonAsync<Application>("application", application);
-            postTask.Wait();
 
-            var result = postTask.Result;
-            if (result.IsSuccessStatusCode)
-                return;
 
-            
+            using var response = await client.PostAsync(url, applicationJson);
+            return;
         }
     }
 }

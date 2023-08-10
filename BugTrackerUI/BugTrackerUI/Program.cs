@@ -36,6 +36,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.MapControllerRoute("default", "{Controller=Error}/{Action=Index}/{id?}");
 
 app.UseAuthentication();
 app.UseAuthorization();

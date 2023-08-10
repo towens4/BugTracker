@@ -46,12 +46,6 @@ namespace BugTracker.Controllers
             _repository.AddApplication(application);
         }
 
-        // POST api/<ErrorController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
         // PUT api/<ErrorController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
