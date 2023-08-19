@@ -21,7 +21,10 @@ namespace BugTracker.Models
         
         public void AddError(Exception exception)
         {
-            throw new NotImplementedException();
+            Error error = new Error();
+            {
+
+            }
         }
 
         public List<Error> GetErrors(Guid appId)
@@ -29,9 +32,18 @@ namespace BugTracker.Models
             throw new NotImplementedException();
         }
 
-        public List<Application> GetApplications(string userId)
+        public List<Application> GetApplications(string userId, List<Application> outApplications)
         {
             var applications = _dbContext.Application.Where(id => id.UserId == userId).ToList();
+            
+
+            foreach(var application in outApplications)
+            {
+                if (applications.Any(apps => apps.UserId == application.UserId && apps.ApplicationName == application.ApplicationName))
+                    continue;
+                applications.Add(application);
+                AddApplication(application);
+            }
             return applications is null ? null : applications;
         }
 

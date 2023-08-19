@@ -54,6 +54,7 @@ $(document).ready(function () {
                     data: JSON.stringify(model),
                     success: function () {
                         console.log("Add application request Succeeded");
+                        $("#applicationInput").remove();
                     }, error: function (jqr, textStatus, errorThrow) {
                         console.log("Error in add application request: ", jqr)
                     }
@@ -81,5 +82,10 @@ $(document).ready(function () {
                 console.log("Error in add application request: ", jqr)
             }
         })
+    })
+
+    $("#applicationItem").on('hover', function () {
+        console.log("On app item");
+        $(this).sibling().toggle();
     })
 })

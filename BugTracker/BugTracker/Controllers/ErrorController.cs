@@ -10,19 +10,43 @@ namespace BugTracker.Controllers
     [ApiController]
     public class ErrorController : ControllerBase
     {
+        /**
+         * Name added to lIst
+         * The below variable resets the list to 0;
+         * */
+        
         private readonly IDbRepository _repository;
-        public ErrorController(IDbRepository repository)
+        private readonly ILocalRepository _localRepo;
+
+        public ErrorController(IDbRepository repository, ILocalRepository localRepo)
         {
+            
             _repository = repository;
+            _localRepo = localRepo;
         }
         // GET: api/<ErrorController>
         [HttpGet("{userId}")]
         public IEnumerable<Application> Get(string userId)
         {
             List<Application> apps = null;
+            List<Application> tempApps = new List<Application>();
+            var list = _localRepo.GetAppNames();
             try
             {
-                apps = _repository.GetApplications(userId);
+                foreach(string applicationName in _localRepo.GetAppNames())
+                {
+                    tempApps.Add(new Application()
+                    {
+                        ApplicationName = applicationName,
+                        UserId = userId,
+                        ApplicationId = new Guid()
+                    });
+                }
+
+                /**
+                 *  Check if applications from tempApps exists in Database
+                 **/
+                apps = _repository.GetApplications(userId, tempApps);
                 return apps;
             }
             catch (Exception)
@@ -34,16 +58,33 @@ namespace BugTracker.Controllers
         }
 
         // GET api/<ErrorController>/5
-       /* [HttpGet("{appId}")]
-        public IEnumerable<Error> Get(Guid appId)
+        /* [HttpGet("{appId}")]
+         public IEnumerable<Error> Get(Guid appId)
+         {
+             return _repository.GetErrors(appId);
+         }*/
+
+        [HttpPost("addApplication/{applicationName}")]
+        public void Post([FromBody] string applicationName)
         {
-            return _repository.GetErrors(appId);
-        }*/
+            //_localRepo.
+            if(!_localRepo.GetAppNames().Contains(applicationName))
+                _localRepo.AddAppName(applicationName);
+            var list = _localRepo.GetAppNames();
+           
+        }
 
         [HttpPost("{application}")]
         public void Post([FromBody] Application application)
         {
+
             _repository.AddApplication(application);
+        }
+
+        [HttpPost("addError/{error}")]
+        public void post([FromBody] Exception error)
+        {
+            _repository.AddError(error);
         }
 
         // PUT api/<ErrorController>/5

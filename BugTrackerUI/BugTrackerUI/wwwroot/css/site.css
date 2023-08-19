@@ -16,3 +16,23 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.application-item{
+    width: 100px;
+    display:inline-block;
+}
+
+    .application-container:hover > .application-edit {
+        display: inline-block;
+    }
+
+.application-edit{
+    background-color: hsl(211, 100%, 47%);
+    padding: 0.2em 1em;
+    color:white;
+    border-radius: 5px;
+    cursor:pointer;
+}
+.application-edit{
+    display:none;
+}

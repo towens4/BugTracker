@@ -14,7 +14,11 @@ builder.Services.AddDbContext<BugTrackerDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("BugTrackerDB"));
 });
+
+builder.Services.AddSingleton<List<string>>();
 builder.Services.AddScoped<IDbRepository, BugTrackerDbRepository>();
+builder.Services.AddSingleton<ILocalRepository, LocalRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

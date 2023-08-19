@@ -2,6 +2,7 @@
 using BugTrackerUI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace BugTrackerUI.Controllers
 {
@@ -16,6 +17,17 @@ namespace BugTrackerUI.Controllers
         }
         public IActionResult Index()
         {
+            try
+            {
+                
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ApiHandler.AddError(_httpClient, ex);
+                //throw;
+            }
+
             return View();
         }
 
@@ -25,6 +37,7 @@ namespace BugTrackerUI.Controllers
         {
             try
             {
+                var appiName = Assembly.GetExecutingAssembly().GetName().Name;
                 string appName = applicationName.ApplicationName;
                 IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
                 ApplicationViewModel application = new ApplicationViewModel() { ApplicationId = new Guid(), ApplicationName = appName, UserId = user.Id };
@@ -33,6 +46,7 @@ namespace BugTrackerUI.Controllers
             }
             catch(Exception ex)
             {
+                
                 return BadRequest(ex.Message);
             }
             /**/

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using BugTrackerUI.Helper;
+using System.Reflection;
+using System.Net.Http;
 
 namespace BugTrackerUI.ViewComponents
 {
@@ -22,33 +24,31 @@ namespace BugTrackerUI.ViewComponents
         [HttpGet]
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            IEnumerable<ApplicationViewModel> applications = null;
-            IdentityUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            var userId = currentUser.Id;
 
-            //ApiHandler apiHandler = new ApiHandler();
-
-            //applications = await apiHandler.LoadApplications(userId);
-
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7240/api/error/{userId}");
-
-            var client = _httpClientFactory.CreateClient();
-
-            HttpResponseMessage response = await client.SendAsync(request);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                applications = await response.Content.ReadFromJsonAsync<List<ApplicationViewModel>>();
+                throw new Exception();
+                IdentityUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                var userId = currentUser.Id;
+                IEnumerable<ApplicationViewModel> applications = null;
+                if (await ApiHandler.PostAppName(_httpClientFactory, Assembly.GetExecutingAssembly().GetName().Name))
+                {
+                    applications = await ApiHandler.GetApplications(_httpClientFactory, userId);
+                }
+                //IEnumerable<ApplicationViewModel> applications = await ApiHandler.GetApplications(_httpClientFactory, userId);
+
+                if (applications == null)
+                    return View(new List<ApplicationViewModel>());
+
+                return View(applications);
             }
-            else
+            catch (Exception ex)
             {
-                throw new Exception(response.ReasonPhrase);
+
+                ApiHandler.AddError(_httpClientFactory, ex);
             }
 
-            if(applications == null)
-                return View(new List<ApplicationViewModel>());
-
-            return View(applications);
+            return View();
         }
     }
 }

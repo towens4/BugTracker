@@ -2,6 +2,7 @@ using BugTrackerUI.Data;
 using BugTrackerUI.Helper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 

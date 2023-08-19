@@ -3,6 +3,7 @@ using BugTrackerUI.Models;
 using BugTrackerUI.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 namespace BugTrackerUI.Controllers
@@ -20,9 +21,18 @@ namespace BugTrackerUI.Controllers
         public IActionResult Index()
         {
             List<ErrorViewModel> errorList = new List<ErrorViewModel>();
+            try
+            {
 
-           
 
+                //ApiHandler.AddError(_httpClient, ex);
+                
+                return View(errorList);
+            }
+            catch (Exception ex)
+            {
+                ApiHandler.AddError(_httpClient, ex);
+            }
             return View(errorList);
         }
 
