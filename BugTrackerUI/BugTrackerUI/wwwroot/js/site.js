@@ -88,4 +88,6 @@ $(document).ready(function () {
         console.log("On app item");
         $(this).sibling().toggle();
     })
+
+
 })

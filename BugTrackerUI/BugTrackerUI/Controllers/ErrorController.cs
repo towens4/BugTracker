@@ -1,6 +1,8 @@
-﻿using BugTrackerUI.Helper;
+﻿using BugTrackerAPICall.APICall;
+using BugTrackerUI.Helper;
 using BugTrackerUI.Models;
 using BugTrackerUI.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Reflection;
@@ -10,30 +12,80 @@ namespace BugTrackerUI.Controllers
 {
     public class ErrorController : Controller
     {
-        Uri baseAddress = new Uri("https://localhost:44379/api");
+        public string applicationName = Assembly.GetExecutingAssembly().GetName().Name;
         private readonly IHttpClientFactory _httpClient;
-
-        public ErrorController(IHttpClientFactory httpClient)
+        private readonly UserManager<IdentityUser> _userManager;
+        public ErrorController(IHttpClientFactory httpClient, UserManager<IdentityUser> userManager)
         {
             _httpClient = httpClient;
+            _userManager = userManager;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
+        {
+            return View();
+            
+        }
+
+        public async Task<IActionResult> ErrorList(Guid applicationId)
         {
             List<ErrorViewModel> errorList = new List<ErrorViewModel>();
             try
             {
+                IdentityUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                var userId = currentUser.Id;
+                IdHolderModel idHolder = new IdHolderModel()
+               {
+                   ApplicationId = applicationId,
+                   UserId =  currentUser.Id
+               };
+                
+                var errorApiList = await ApiCallFunctions.GetErrors(_httpClient, idHolder);
 
-
-                //ApiHandler.AddError(_httpClient, ex);
+                if (errorApiList == null || !errorApiList.Any())
+                    return View(errorList);
+                    
+                foreach (var errorApi in errorApiList)
+                {
+                    errorList.Add(new ErrorViewModel()
+                    {
+                        ErrorDetails = errorApi.ErrorDetails,
+                        ErrorId = errorApi.ErrorId,
+                        ApplicationId = errorApi.ApplicationId,
+                        Exception = errorApi.Exception,
+                        FileLine = errorApi.FileLine,
+                        FileLocation = errorApi.FileLocation,
+                        MethodName = errorApi.MethodName,
+                        Resolved = errorApi.Resolved
+                    });
+                }
+                //errorList = errorApiList;
                 
                 return View(errorList);
             }
             catch (Exception ex)
             {
-                ApiHandler.AddError(_httpClient, ex);
+                await ApiCallFunctions.AddError(_httpClient, ex, applicationName, BugTrackerAPICall.Helper.CallerMethod.GetCallerMethodName());
+                return View(errorList);
             }
-            return View(errorList);
+        }
+
+        public async Task<bool> ErrorTest()
+        {
+            try
+            {
+                object m = null;
+                string s = m.ToString();
+
+                return false;
+            }
+            catch(Exception ex)
+            {
+
+                await ApiCallFunctions.AddError(_httpClient, ex, applicationName, BugTrackerAPICall.Helper.CallerMethod.GetCallerMethodName()) ;
+            }
+
+            return true;
         }
 
         [HttpGet]

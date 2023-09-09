@@ -1,0 +1,33 @@
+﻿@page
+
+@{
+    //ViewData["Title"] = "Home page";
+}
+
+<table class="table table-light">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Exception</th>
+            <th scope="col">File Location</th>
+            <th scope="col">File Line</th>
+            <th scope="col">Error Details</th>
+            <th scope="col">Resolved</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Exception</td>
+            <td>User Application</td>
+            <td>310</td>
+            <td>Issue with value</td>
+            <td><input type="checkbox"/></td>
+        </tr>
+    </tbody>
+</table>
+<a>@Html.ActionLink("Demo Error", "ErrorTest", "Error")</a>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

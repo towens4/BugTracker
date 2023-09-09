@@ -1,5 +1,5 @@
-using BugTracker.Interfaces;
-using BugTracker.Models;
+using BugTrackerCore.Interfaces;
+using BugTrackerCore.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +15,7 @@ builder.Services.AddDbContext<BugTrackerDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BugTrackerDB"));
 });
 
-builder.Services.AddSingleton<List<string>>();
+//builder.Services.AddSingleton<IList<string>, List<string>>();
 builder.Services.AddScoped<IDbRepository, BugTrackerDbRepository>();
 builder.Services.AddSingleton<ILocalRepository, LocalRepository>();
 

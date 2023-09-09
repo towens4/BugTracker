@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -16,6 +16,15 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BugTrackerAPICall">
+      <HintPath>..\..\BugTracker\BugTrackerAPICall\bin\Debug\net6.0\BugTrackerAPICall.dll</HintPath>
+    </Reference>
+    <Reference Include="BugTrackerCore">
+      <HintPath>..\..\BugTracker\BugTrackerAPICall\bin\Debug\net6.0\BugTrackerCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

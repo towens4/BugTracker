@@ -1242,6 +1242,20 @@
             "rid": "win"
           }
         }
+      },
+      "BugTrackerCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.9",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9"
+        },
+        "compile": {
+          "bin/placeholder/BugTrackerCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BugTrackerCore.dll": {}
+        }
       }
     }
   },
@@ -3712,10 +3726,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "BugTrackerCore/1.0.0": {
+      "type": "project",
+      "path": "../BugTrackerCore/BugTrackerCore.csproj",
+      "msbuildProject": "../BugTrackerCore/BugTrackerCore.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "BugTrackerCore >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 7.0.9",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.9",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.9",
@@ -3754,7 +3774,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTracker\\BugTrackerCore\\BugTrackerCore.csproj": {
+              "projectPath": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTracker\\BugTrackerCore\\BugTrackerCore.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

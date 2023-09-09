@@ -131,7 +131,6 @@ C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\n
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.RazorAssemblyInfo.cs
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\scopedcss\bundle\BugTrackerUI.styles.css
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\scopedcss\projectbundle\BugTrackerUI.bundle.scp.css
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.csproj.CopyComplete
@@ -148,3 +147,8 @@ C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\n
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\System.Text.Json.dll
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\BugTrackerAPICall.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\BugTrackerAPICall.pdb
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\BugTrackerCore.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\BugTrackerCore.pdb
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css

@@ -1,0 +1,14 @@
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\bin\Debug\net6.0\BugTrackerCore.deps.json
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\bin\Debug\net6.0\BugTrackerCore.runtimeconfig.json
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\bin\Debug\net6.0\BugTrackerCore.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\bin\Debug\net6.0\BugTrackerCore.pdb
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.csproj.AssemblyReference.cache
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.AssemblyInfoInputs.cache
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.AssemblyInfo.cs
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.csproj.CoreCompileInputs.cache
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\refint\BugTrackerCore.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.pdb
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.genruntimeconfig.cache
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\ref\BugTrackerCore.dll

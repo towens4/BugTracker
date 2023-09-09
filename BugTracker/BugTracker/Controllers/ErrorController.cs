@@ -1,5 +1,5 @@
-﻿using BugTracker.Interfaces;
-using BugTracker.Models;
+﻿using BugTrackerCore.Interfaces;
+using BugTrackerCore.Models;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,7 +25,7 @@ namespace BugTracker.Controllers
             _localRepo = localRepo;
         }
         // GET: api/<ErrorController>
-        [HttpGet("{userId}")]
+        [HttpGet("getApplications/{userId}")]
         public IEnumerable<Application> Get(string userId)
         {
             List<Application> apps = null;
@@ -39,7 +39,7 @@ namespace BugTracker.Controllers
                     {
                         ApplicationName = applicationName,
                         UserId = userId,
-                        ApplicationId = new Guid()
+                        ApplicationId = Guid.NewGuid(),
                     });
                 }
 
@@ -57,20 +57,83 @@ namespace BugTracker.Controllers
             return apps;
         }
 
-        // GET api/<ErrorController>/5
-        /* [HttpGet("{appId}")]
-         public IEnumerable<Error> Get(Guid appId)
-         {
-             return _repository.GetErrors(appId);
-         }*/
+        [HttpGet("{applicationId}/{userId}")]
+        public IEnumerable<Error> Get(string applicationId, string userId)
+        {
+
+            Guid newApplicationId = Guid.Parse(applicationId);
+            List<Error> errors = null;
+            List<Error> tempErrors = new List<Error>();
+            Application dbApp = _repository.GetApplication(userId, newApplicationId);
+            List<ErrorPostModel> errorPostModels = _localRepo.GetErrorPostModels();
+            foreach(var error in errorPostModels)
+            {
+                if(dbApp == null)
+                {
+                    throw new Exception("Application Not found in database");
+                }
+                if(error.ApplicationName != dbApp.ApplicationName && newApplicationId != dbApp.ApplicationId)
+                {
+                    continue;
+                }
+                error.ErrorModel.ApplicationId = newApplicationId;
+                _repository.AddError(error.ErrorModel);
+                
+            }
+            try
+            {
+                foreach (var item in errorPostModels)
+                {
+                    //Checks to see if error comes from a different application, if yes add to temp errors
+                    if(item.ApplicationName == dbApp.ApplicationName && newApplicationId == dbApp.ApplicationId)
+                    {
+                        tempErrors.Add(new Error()
+                        {
+                            ApplicationId = newApplicationId,
+                            ErrorId = item.ErrorModel.ErrorId,
+                            ErrorDetails = item.ErrorModel.ErrorDetails,
+                            Exception = item.ErrorModel.Exception,
+                            FileLine = item.ErrorModel.FileLine,
+                            MethodName = item.ErrorModel.MethodName,
+                            FileLocation = item.ErrorModel.FileLocation,
+                            Resolved = item.ErrorModel.Resolved
+                        });
+                    }
+                    else
+                    {
+                        tempErrors.Add(new Error()
+                        {
+                            ApplicationId = item.ErrorModel.ApplicationId,
+                            ErrorId = item.ErrorModel.ErrorId,
+                            ErrorDetails = item.ErrorModel.ErrorDetails,
+                            Exception = item.ErrorModel.Exception,
+                            FileLine = item.ErrorModel.FileLine,
+                            MethodName = item.ErrorModel.MethodName,
+                            FileLocation = item.ErrorModel.FileLocation,
+                            Resolved = item.ErrorModel.Resolved
+                        });
+                    }
+                   
+                }
+
+                errors = _repository.GetErrors(newApplicationId, tempErrors);
+                return errors;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return new List<Error>();
+        }
 
         [HttpPost("addApplication/{applicationName}")]
         public void Post([FromBody] string applicationName)
         {
-            //_localRepo.
+            
             if(!_localRepo.GetAppNames().Contains(applicationName))
                 _localRepo.AddAppName(applicationName);
-            var list = _localRepo.GetAppNames();
+            
            
         }
 
@@ -82,9 +145,11 @@ namespace BugTracker.Controllers
         }
 
         [HttpPost("addError/{error}")]
-        public void post([FromBody] Exception error)
+        public void post([FromBody] ErrorPostModel error)
         {
-            _repository.AddError(error);
+            _localRepo.AddErrorPostModel(error);
+            _localRepo.setError(error.ErrorModel);
+            //_repository.AddError(error.ErrorModel);
         }
 
         // PUT api/<ErrorController>/5
