@@ -1,7 +1,9 @@
 ﻿using BugTrackerAPICall.APICall;
-using BugTrackerUI.Helper;
-using BugTrackerUI.Models;
-using BugTrackerUI.Models.ViewModels;
+using BugTrackerAPICall.Helper;
+using BugTrackerCore.Models;
+using BugTrackerUICore.Helper;
+using BugTrackerUICore.Models;
+using BugTrackerUICore.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -34,32 +36,17 @@ namespace BugTrackerUI.Controllers
             {
                 IdentityUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
                 var userId = currentUser.Id;
-                IdHolderModel idHolder = new IdHolderModel()
-               {
-                   ApplicationId = applicationId,
-                   UserId =  currentUser.Id
-               };
+
+                IdHolderModel idHolder = IdHolderFactory.CreateIdHolder(userId, applicationId);
+                
                 
                 var errorApiList = await ApiCallFunctions.GetErrors(_httpClient, idHolder);
 
                 if (errorApiList == null || !errorApiList.Any())
                     return View(errorList);
-                    
-                foreach (var errorApi in errorApiList)
-                {
-                    errorList.Add(new ErrorViewModel()
-                    {
-                        ErrorDetails = errorApi.ErrorDetails,
-                        ErrorId = errorApi.ErrorId,
-                        ApplicationId = errorApi.ApplicationId,
-                        Exception = errorApi.Exception,
-                        FileLine = errorApi.FileLine,
-                        FileLocation = errorApi.FileLocation,
-                        MethodName = errorApi.MethodName,
-                        Resolved = errorApi.Resolved
-                    });
-                }
-                //errorList = errorApiList;
+
+                errorList = ErrorFactory.CreateErrorList(errorApiList);
+                
                 
                 return View(errorList);
             }
@@ -91,11 +78,11 @@ namespace BugTrackerUI.Controllers
         [HttpGet]
         public IActionResult CreateApplication()
         {
-            Models.ApplicationViewModel application = new Models.ApplicationViewModel();
+            BugTrackerUICore.Models.ViewModels.ApplicationViewModel application = new BugTrackerUICore.Models.ViewModels.ApplicationViewModel();
             return View(application);
         }
 
-        public IActionResult CreateApplication(Models.ApplicationViewModel application)
+        public IActionResult CreateApplication(BugTrackerUICore.Models.ViewModels.ApplicationViewModel application)
         {
             if(!ModelState.IsValid)
                 return View();

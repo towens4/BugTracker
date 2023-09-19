@@ -2286,6 +2286,26 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "BugTrackerUICore/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Client": "5.2.9",
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.10",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.10",
+          "Microsoft.AspNetCore.Identity.UI": "6.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.10",
+          "Microsoft.EntityFrameworkCore.Tools": "6.0.10",
+          "Newtonsoft.Json": "13.0.3",
+          "System.Net.Http.Json": "7.0.1"
+        },
+        "compile": {
+          "bin/placeholder/BugTrackerUICore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BugTrackerUICore.dll": {}
+        }
       }
     }
   },
@@ -7175,10 +7195,16 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "BugTrackerUICore/1.0.0": {
+      "type": "project",
+      "path": "../BugTrackerAPICore/BugTrackerUICore.csproj",
+      "msbuildProject": "../BugTrackerAPICore/BugTrackerUICore.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "BugTrackerUICore >= 1.0.0",
       "Microsoft.AspNet.WebApi.Client >= 5.2.9",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.10",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.10",
@@ -7221,7 +7247,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerAPICore\\BugTrackerUICore.csproj": {
+              "projectPath": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerAPICore\\BugTrackerUICore.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

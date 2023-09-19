@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "BugTrackerUI/1.0.0": {
         "dependencies": {
+          "BugTrackerUICore": "1.0.0",
           "Microsoft.AspNet.WebApi.Client": "5.2.9",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.10",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.10",
@@ -1257,6 +1258,21 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
+      "BugTrackerUICore/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Client": "5.2.9",
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.10",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.10",
+          "Microsoft.AspNetCore.Identity.UI": "6.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.10",
+          "Microsoft.EntityFrameworkCore.Tools": "6.0.10",
+          "Newtonsoft.Json": "13.0.3",
+          "System.Net.Http.Json": "7.0.1"
+        },
+        "runtime": {
+          "BugTrackerUICore.dll": {}
+        }
+      },
       "BugTrackerAPICall/1.0.0.0": {
         "runtime": {
           "BugTrackerAPICall.dll": {
@@ -2176,6 +2192,11 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "BugTrackerUICore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "BugTrackerAPICall/1.0.0.0": {
       "type": "reference",

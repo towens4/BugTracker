@@ -1,4 +1,5 @@
 ﻿@using BugTrackerUI.Models
+@using BugTrackerUICore.Models
 @using static System.Net.WebRequestMethods
 
 @model IEnumerable<ApplicationViewModel>
@@ -23,7 +24,6 @@
 
                 */
                 <a class="dropdown-item application-container col-8" href="@Url.ActionLink("ErrorList", "Error", new{applicationId = item.ApplicationId})">
-                    <p>@item.ApplicationId</p>
                     <p class="application-item">@item.ApplicationName</p>
                     <span id="application-edit" class="application-edit">Edit</span>
                 </a>

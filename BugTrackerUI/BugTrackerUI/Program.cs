@@ -1,5 +1,6 @@
 using BugTrackerUI.Data;
-using BugTrackerUI.Helper;
+using BugTrackerUICore.Helper;
+using BugTrackerUICore.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

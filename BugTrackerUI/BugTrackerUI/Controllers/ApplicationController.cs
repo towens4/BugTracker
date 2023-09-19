@@ -1,5 +1,5 @@
-﻿using BugTrackerUI.Helper;
-using BugTrackerUI.Models;
+﻿using BugTrackerUICore.Helper;
+using BugTrackerUICore.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
@@ -33,7 +33,7 @@ namespace BugTrackerUI.Controllers
 
         //[Route("Application/AddApplication/applicationName")]
         [HttpPost("/Application/AddApplication")]
-        public async Task<ActionResult> AddApplication([FromBody] Models.ViewModels.ApplicationNameInputModel applicationName)
+        public async Task<ActionResult> AddApplication([FromBody] ApplicationNameInputModel applicationName)
         {
             try
             {

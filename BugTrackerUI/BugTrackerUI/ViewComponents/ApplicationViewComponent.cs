@@ -1,9 +1,9 @@
-﻿using BugTrackerUI.Models;
-using BugTrackerUI.Data;
+﻿using BugTrackerUICore.Models;
+using BugTrackerUICore.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
-using BugTrackerUI.Helper;
+using BugTrackerUICore.Helper;
 using System.Reflection;
 using System.Net.Http;
 using BugTrackerAPICall.APICall;

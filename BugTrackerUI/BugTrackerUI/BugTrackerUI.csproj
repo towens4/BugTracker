@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BugTrackerAPICore\BugTrackerUICore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="BugTrackerAPICall">
       <HintPath>..\..\BugTracker\BugTrackerAPICall\bin\Debug\net6.0\BugTrackerAPICall.dll</HintPath>
     </Reference>
