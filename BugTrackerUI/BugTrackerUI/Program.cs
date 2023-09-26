@@ -4,6 +4,8 @@ using BugTrackerUICore.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using BugTrackerCore;
+using BugTrackerAPICall.APICall;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,12 +17,15 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddScoped<IHttpMethods, ApiCallFunctions>();
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 
 
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -38,11 +43,21 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.MapControllerRoute("default", "{Controller=Error}/{Action=Index}/{id?}");
-
-app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapRazorPages();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapControllerRoute("default", "{Controller=Error}/{Action=Index}/{id?}");
+
+    
+});
+//app.MapControllerRoute("default", "{Controller=Error}/{Action=Index}/{id?}");
+
+app.UseAuthentication();
+
+
+//app.MapRazorPages();
 
 app.Run();

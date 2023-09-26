@@ -1,4 +1,5 @@
-﻿@inject SignInManager<IdentityUser> signInManager;
+﻿@using BugTrackerCore
+@inject SignInManager<IdentityUser> signInManager;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +33,7 @@
                     @if(signInManager.IsSignedIn(User))
                     {
                         @await Component.InvokeAsync("Application")
+                        
                     }
                     
                     <partial name="_LoginPartial" />

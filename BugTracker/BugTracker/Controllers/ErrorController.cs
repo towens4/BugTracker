@@ -51,21 +51,21 @@ namespace BugTracker.Controllers
             
         }
 
-        [HttpGet("{applicationId}/{userId}")]
-        public IEnumerable<Error> Get(string applicationId, string userId)
+        [HttpGet("getErrors/{applicationId}")]
+        public IEnumerable<Error> Get(Guid applicationId)
         {
             try
             {
-                Guid newApplicationId = Guid.Parse(applicationId);
+                //Guid applicationId = Guid.Parse(applicationId);
                 List<Error> errors = null;
 
-                Application dbApp = _repository.GetApplication(userId, newApplicationId);
+                Application dbApp = _repository.GetApplication(_localRepo.UserId, applicationId);
                 List<ErrorPostModel> errorPostModels = _localRepo.GetErrorPostModels();
 
-                List<Error> tempErrors = ErrorFactory.CreateTempErrorList(dbApp, newApplicationId, errorPostModels);
+                List<Error> tempErrors = ErrorFactory.CreateTempErrorList(dbApp, applicationId, errorPostModels);
               
 
-                errors = _repository.GetErrors(newApplicationId, tempErrors);
+                errors = _repository.GetErrors(applicationId, tempErrors);
                 return errors;
             }
             catch (Exception ex)
@@ -96,9 +96,21 @@ namespace BugTracker.Controllers
         [HttpPost("addError/{error}")]
         public void post([FromBody] ErrorPostModel error)
         {
-            _localRepo.AddErrorPostModel(error);
-            _localRepo.setError(error.ErrorModel);
+            if(_localRepo.UserId != "" && _localRepo.GetAppNames().Contains(error.ApplicationName) == false)
+            {
+                _localRepo.AddErrorPostModel(error);
+                _localRepo.setError(error.ErrorModel);
+                return;
+            }
+
+            _repository.AddError(error.ErrorModel);
             //_repository.AddError(error.ErrorModel);
+        }
+
+        [HttpPost("addUserId/{userId}")]
+        public void post([FromBody] string userId)
+        {
+            _localRepo.UserId = userId;
         }
 
         // PUT api/<ErrorController>/5

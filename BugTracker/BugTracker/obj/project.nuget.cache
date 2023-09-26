@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "zA1hK42cwr8vIgHQFZPuioOCGjBgGtpMBDVY9rNWUPjGK+AT/W2K7NCdPsZaRGqlqmYfKZBoXdW8SKVx3UXPSQ==",
+  "dgSpecHash": "eUg5PNgX9/n79yztR8JKIo/z6Il1IsFf3JK4H0x8J49ZQxHytZwZMzvEHnGQiQ+6EWHGpYdSDYjTPVphmpE7LA==",
   "success": true,
   "projectFilePath": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTracker\\BugTracker\\BugTracker.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,7 @@
     "C:\\Users\\timow\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Users\\timow\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\timow\\.nuget\\packages\\microsoft.extensions.dependencymodel\\7.0.0\\microsoft.extensions.dependencymodel.7.0.0.nupkg.sha512",
+    "C:\\Users\\timow\\.nuget\\packages\\microsoft.extensions.http\\6.0.0\\microsoft.extensions.http.6.0.0.nupkg.sha512",
     "C:\\Users\\timow\\.nuget\\packages\\microsoft.extensions.logging\\7.0.0\\microsoft.extensions.logging.7.0.0.nupkg.sha512",
     "C:\\Users\\timow\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\timow\\.nuget\\packages\\microsoft.extensions.options\\7.0.0\\microsoft.extensions.options.7.0.0.nupkg.sha512",

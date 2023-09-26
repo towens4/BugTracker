@@ -17,6 +17,13 @@ $(document).ready(function () {
         
     })*/
 
+    AJAXRequest("GET","/Error/PostUserId", null, null, function ()
+    {
+        console.log("Post Success");
+    }, function () {
+        console.log("Post unsuccessful")
+    })
+
     $("#applicationDropdown").on('click', function (event) {
         event.stopPropagation(); // Prevent click event from propagating to document
         console.log('dropdown clicked');

@@ -12,5 +12,6 @@ namespace BugTrackerCore.Interfaces
         void setError(Error exception);
         Error GetError();
         void RemoveErrorPostModel(ErrorPostModel errorPostModel);
+        public string UserId { get; set; }
     }
 }

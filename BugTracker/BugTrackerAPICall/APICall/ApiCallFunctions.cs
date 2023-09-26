@@ -13,37 +13,15 @@ using System.Collections;
 using BugTrackerCore.Models;
 using BugTrackerCore.Interfaces;
 using System.Web;
+using BugTrackerCore;
 
 namespace BugTrackerAPICall.APICall
 {
-    public class ApiCallFunctions
+    public class ApiCallFunctions : IHttpMethods
     {
-        /*public async Task<IEnumerable<ApplicationViewModel>> LoadApplications(string userId)
-        {
-            string url = "";
-
-            if (!userId.Equals(null))
-            {
-                url = $"https://localhost:44379/api/error/{userId}";
-            }
-
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    List<ApplicationViewModel> applications = await response.Content.ReadAsAsync<List<ApplicationViewModel>>();
-                    return applications;
-                }
-                else
-                {
-                    throw new Exception(response.ReasonPhrase);
-                }
-            }
 
 
-        }*/
-
-        public static async Task<bool> PostAppName(IHttpClientFactory httpClient, string applicationName)
+        public async Task<bool> PostAppName(IHttpClientFactory httpClient, string applicationName)
         {
             string url = "";
 
@@ -73,7 +51,7 @@ namespace BugTrackerAPICall.APICall
             }
         }
 
-        public static async void AddApplication(IHttpClientFactory httpClient, ApplicationViewModel application)
+        public async void AddApplication(IHttpClientFactory httpClient, ApplicationViewModel application)
         {
             string url = "";
 
@@ -91,7 +69,7 @@ namespace BugTrackerAPICall.APICall
 
         }
 
-        public static async Task<IEnumerable<ApplicationViewModel>> GetApplications(IHttpClientFactory httpClient, string userId)
+        public async Task<IEnumerable<ApplicationViewModel>> GetApplications(IHttpClientFactory httpClient, string userId)
         {
             List<ApplicationViewModel> applications = new List<ApplicationViewModel>();
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7240/api/error/getApplications/{userId}");
@@ -112,7 +90,7 @@ namespace BugTrackerAPICall.APICall
 
         }
 
-        public static async Task<bool> AddError(IHttpClientFactory httpClient, Exception exception, string applicationName, string callerMethod)
+        public async Task<bool> AddError(IHttpClientFactory httpClient, Exception exception, string applicationName, string callerMethod)
         {
             
 
@@ -154,12 +132,12 @@ namespace BugTrackerAPICall.APICall
             }
         }
 
-        public static async Task<List<ErrorViewModel>> GetErrors(IHttpClientFactory httpClient, IIdHolderModel idHolder)
+        public async Task<List<ErrorViewModel>> GetErrors(IHttpClientFactory httpClient, Guid applicationId)
         {
            List<ErrorViewModel> errors = new List<ErrorViewModel>();
-            var applicationId = idHolder.ApplicationId;
-            var userId = idHolder.UserId;
-            string baseUrl = $"https://localhost:7240/api/error/{applicationId}/{userId}";
+            
+            //var userId = idHolder.UserId;
+            string baseUrl = $"https://localhost:7240/api/error/getErrors/{applicationId}";
             
             //string queryString = $"?applicationId={HttpUtility.UrlEncode(idHolder.ApplicationId.ToString())}&userId={HttpUtility.UrlEncode(idHolder.UserId)}";
             
@@ -180,6 +158,23 @@ namespace BugTrackerAPICall.APICall
             {
                 throw new Exception(response.ReasonPhrase);
             }
+        }
+
+        public async void PostUserId(IHttpClientFactory httpClient, string userId)
+        {
+            //ERROR: id not adding. 505 status code
+
+            string baseUrl = $"https://localhost:7240/api/error/addUserId/{userId}";
+
+            var applicationJson = new StringContent(System.Text.Json.JsonSerializer.Serialize(userId), Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
+
+            //var request = new HttpRequestMessage(HttpMethod.Post, baseUrl);
+
+            var client = httpClient.CreateClient();
+
+
+            using var response = await client.PostAsync(baseUrl, applicationJson);
+
         }
     }
 }

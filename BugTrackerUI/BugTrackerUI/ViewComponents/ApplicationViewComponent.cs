@@ -7,6 +7,7 @@ using BugTrackerUICore.Helper;
 using System.Reflection;
 using System.Net.Http;
 using BugTrackerAPICall.APICall;
+using BugTrackerCore;
 
 namespace BugTrackerUI.ViewComponents
 {
@@ -15,11 +16,13 @@ namespace BugTrackerUI.ViewComponents
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IHttpClientFactory _httpClientFactory;
-        public ApplicationViewComponent(ApplicationDbContext context, UserManager<IdentityUser> userManager, IHttpClientFactory httpClientFactory)
+        private readonly IHttpMethods _httpMethods;
+        public ApplicationViewComponent(ApplicationDbContext context, UserManager<IdentityUser> userManager, IHttpClientFactory httpClientFactory, IHttpMethods httpMethods)
         {
             _context = context;
             _userManager = userManager;
             _httpClientFactory = httpClientFactory;
+            _httpMethods = httpMethods;
         }
 
         [HttpGet]
@@ -37,10 +40,10 @@ namespace BugTrackerUI.ViewComponents
                 {
                     applications = await ApiHandler.GetApplications(_httpClientFactory, userId);
                 }*/
-                if (await ApiCallFunctions.PostAppName(_httpClientFactory, Assembly.GetExecutingAssembly().GetName().Name))
+                if (await _httpMethods.PostAppName(_httpClientFactory, Assembly.GetExecutingAssembly().GetName().Name))
                 {
                     applications = new List<ApplicationViewModel>();
-                    var apiList = await ApiCallFunctions.GetApplications(_httpClientFactory, userId);
+                    var apiList = await _httpMethods.GetApplications(_httpClientFactory, userId);
                     foreach (var app in apiList)
                     {
                         applications.Add(new ApplicationViewModel()
