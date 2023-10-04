@@ -39,8 +39,8 @@ namespace BugTrackerUI.Controllers
             {
                 var appiName = Assembly.GetExecutingAssembly().GetName().Name;
                 string appName = applicationName.ApplicationName;
-                IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
-                ApplicationViewModel application = new ApplicationViewModel() { ApplicationId = new Guid(), ApplicationName = appName, UserId = user.Id };
+                string userId = HttpContext.Session.GetString("Id");
+                ApplicationViewModel application = new ApplicationViewModel() { ApplicationId = new Guid(), ApplicationName = appName, UserId = userId };
                 ApiHandler.AddApplication(_httpClient, application);
                 return Ok();
             }

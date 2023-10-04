@@ -6,6 +6,7 @@ using BugTrackerUICore.Helper;
 using BugTrackerUICore.Models;
 using BugTrackerUICore.Models.ViewModels;
 using BugTrackerUICore.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query.Internal;
@@ -27,6 +28,8 @@ namespace BugTrackerUI.Controllers
             _userManager = userManager;
             _httpMethods = httpMethods;
         }
+
+        
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -34,7 +37,7 @@ namespace BugTrackerUI.Controllers
             
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public async Task<IActionResult> PostUserId()
         {
             if (User.Identity == null)
@@ -42,7 +45,7 @@ namespace BugTrackerUI.Controllers
 
             if (!User.Identity.IsAuthenticated)
             {
-                HttpContext.Session.Remove("CurrentUserId");
+                //HttpContext.Session.Remove("CurrentUserId");
                 return NoContent();
             }
             
@@ -54,12 +57,12 @@ namespace BugTrackerUI.Controllers
             if (string.IsNullOrEmpty(storedUserId) || storedUserId != userId)
             {
                 _httpMethods.PostUserId(_httpClient, userId);
-                HttpContext.Session.SetString("CurrentUserId", userId);
+                //HttpContext.Session.SetString("CurrentUserId", userId);
             }
 
             return NoContent();
             
-        }
+        }*/
 
         public async Task<IActionResult> ErrorList(Guid applicationId)
         {
@@ -67,7 +70,7 @@ namespace BugTrackerUI.Controllers
             try
             {
                 //IdentityUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
-                var userId = HttpContext.Session.GetString("CurrentUserId");
+                var userId = HttpContext.Session.GetString("Id");
                 //UserAccess.PostCurrentUser();
                 //IdHolderModel idHolder = IdHolderFactory.CreateIdHolder(userId, applicationId);
                 

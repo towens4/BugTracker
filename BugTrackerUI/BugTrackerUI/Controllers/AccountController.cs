@@ -1,4 +1,5 @@
-﻿using BugTrackerUICore.Models.ViewModels;
+﻿using BugTrackerCore;
+using BugTrackerUICore.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,15 @@ namespace BugTrackerUI.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IHttpMethods _httpMethods;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IHttpMethods httpMethods, IHttpClientFactory httpClientFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _httpMethods = httpMethods;
+            _httpClientFactory = httpClientFactory;
         }
 
         public IActionResult Register()
@@ -36,8 +41,10 @@ namespace BugTrackerUI.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    _httpMethods.PostUserId(_httpClientFactory, user.Id.ToString());
                     HttpContext.Session.SetString("Id", user.Id.ToString());
-                    return RedirectToAction("Index", "Assignment");
+                    return RedirectToAction("Index", "Error");
                 }
 
                 foreach (var error in result.Errors)
@@ -59,7 +66,7 @@ namespace BugTrackerUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel login)
         {
-            ModelState.Remove("AssignmentList");
+            
             if (ModelState.IsValid)
             {
                 var userTask = await _userManager.FindByNameAsync(login.Email);
@@ -67,8 +74,11 @@ namespace BugTrackerUI.Controllers
 
                 if (result.Succeeded)
                 {
+                    _httpMethods.PostUserId(_httpClientFactory, userTask.Id.ToString());
                     HttpContext.Session.SetString("Id", userTask.Id.ToString());
-                    return RedirectToAction("Index", "Assignment");
+                    
+                    
+                    return RedirectToAction("Index", "Error");
                 }
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
@@ -79,6 +89,8 @@ namespace BugTrackerUI.Controllers
         public IActionResult LogOut()
         {
             _signInManager.SignOutAsync();
+            _httpMethods.PostUserId(_httpClientFactory, "");
+            HttpContext.Session.Remove("Id");
             //assignmentListModel.AssignmentList.ToList().Clear();
             return RedirectToAction("LogIn", "Account");
         }

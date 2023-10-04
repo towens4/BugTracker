@@ -15,11 +15,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IHttpMethods, ApiCallFunctions>();
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true;
+});
 
 
 
@@ -39,13 +44,14 @@ else
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 app.UseAuthorization();
 
-
+app.UseAuthentication();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapRazorPages();
@@ -55,7 +61,7 @@ app.UseEndpoints(endpoints =>
 });
 //app.MapControllerRoute("default", "{Controller=Error}/{Action=Index}/{id?}");
 
-app.UseAuthentication();
+
 
 
 //app.MapRazorPages();
