@@ -3,13 +3,23 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "provider": "cdnjs",
       "library": "twitter-bootstrap@5.3.0",
       "destination": "wwwroot/lib/twitter-bootstrap/",
       "files": [
         "js/bootstrap.min.js",
         "js/bootstrap.bundle.min.js",
         "css/bootstrap.min.css"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "@microsoft/signalr@latest",
+      "destination": "wwwroot/js/signalr",
+      "files": [
+        "dist/browser/signalr.min.js.map",
+        "dist/browser/signalr.min.js",
+        "dist/browser/signalr.js.map",
+        "dist/browser/signalr.js"
       ]
     }
   ]

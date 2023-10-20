@@ -59,5 +59,10 @@ namespace BugTrackerUI.Controllers
             
             return Ok("Success");
         }
+
+        public IActionResult RefreshApplicationList()
+        {
+            return ViewComponent("Application");
+        }
     }
 }

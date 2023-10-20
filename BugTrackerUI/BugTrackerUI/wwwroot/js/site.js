@@ -4,24 +4,88 @@
 // Write your JavaScript code.
 
 $(document).ready(function () {
-    /*$("#applicationDropdown").on('click', function (event) {
-        event.preventDefault();
-        console.log('dropdown clicked');
-        const dropdownList = $('.dropdown-item');
-        console.log(dropdownList);
-        $("#addApplicationDropdown").on('click', function () {
+
+    var url = window.location.href;
+    const partialUrl = "/Error/ErrorContainer";
+
+    
+    
+     
+    var currentApplication = "";
+    function createTableRow(errorModel)
+    {
+        /*var tableBody = $('.error-table');
+        var newRow = tableBody.insertRow();
+
+        //Gets row number
+        const lastRow = tableBody.rows(tableBody.rows.length - 1);
+        const rowNumber = lastRow.rowIndex;
+        newRow.insertCell(0).textContent = rowNumber
+
+        for (var key in errorModel)
+        {
+            const currentKey = errorModel.hasOwnProperty(key);
+            if (currentKey != "ApplicationId" || currentKey != "ErrorId")
+            {
+                const cell = newRow.insertCell();
+                cell.textContent = errorModel[key]
+            }
             
-            //$("#applicationInput").toggle()
-            //$(this).toggle();
-        })
+        }*/
+
+        var newRow = $('.table-row').clone().removeClass('table-row');
+    }
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7240/BugTrackerHub").build();
+
+    connection.on("SendErrorDetails", (message, data) => {
+        //createTableRow(data);
+        const dataModel = { applicationId: currentApplication }
+
+        if (url === partialUrl)
+        {
+            AJAXRequest("GET", "/Error/ErrorList", dataModel, null, function (result) {
+                $(".error-container").empty();
+                $(".error-container").html(result);
+            })
+
+        }
         
-    })*/
+        console.log(message, data);
+        console.log("Successfully Connectioned");
+    })
+    /**
+     * Check app added signal works
+     */
+    connection.on("SendAppAddedSignal", data => {
+        console.log(data);
+        AJAXRequest("GET", "/Application/RefreshApplicationList", null, null, function (result) {
+            $(".dropdown-container").html(result)
+            console.log("Refresh successful");
+        }, function (err) {
+            console.log(err.toString());
+        })
+        console.log("Add added signal received");
+    })
+
+    connection.start().then(function () {
+        console.log("Connected to BugTrackerHub");
+    }).catch(function (err) {
+        console.error(err.toString());
+    })
+
+    
 
     AJAXRequest("GET","/Error/PostUserId", null, null, function ()
     {
         console.log("Post Success");
     }, function () {
         console.log("Post unsuccessful")
+    })
+
+    //Gets applicationId from selected application
+    $(".dropdown-item").on('click', function () {
+        currentApplication = $(this).find("#applicationId").val();
     })
 
     $("#applicationDropdown").on('click', function (event) {

@@ -125,7 +125,6 @@ C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\n
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.AssemblyInfoInputs.cache
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.AssemblyInfo.cs
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.csproj.CoreCompileInputs.cache
-C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.RazorAssemblyInfo.cache
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.RazorAssemblyInfo.cs
@@ -154,3 +153,10 @@ C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\n
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\BugTrackerUICore.dll
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\BugTrackerUICore.pdb
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\obj\Debug\net6.0\BugTrackerUI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\Microsoft.Extensions.Http.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerUI\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll

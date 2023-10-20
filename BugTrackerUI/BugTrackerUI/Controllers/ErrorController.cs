@@ -37,6 +37,13 @@ namespace BugTrackerUI.Controllers
             
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ErrorContainer(Guid applicationId)
+        {
+            
+            return View(applicationId);
+        }
+
         /*[HttpGet]
         public async Task<IActionResult> PostUserId()
         {
@@ -78,12 +85,12 @@ namespace BugTrackerUI.Controllers
                 var errorApiList = await _httpMethods.GetErrors(_httpClient, applicationId);
 
                 if (errorApiList == null || !errorApiList.Any())
-                    return View(errorList);
+                    return PartialView(errorList);
 
                 errorList = ErrorFactory.CreateErrorList(errorApiList);
                 
                 
-                return View(errorList);
+                return PartialView(errorList);
             }
             catch (Exception ex)
             {
@@ -143,5 +150,7 @@ namespace BugTrackerUI.Controllers
             ApiHandler.AddApplication(_httpClient, application);*/
             //return View();
         }
+
+        
     }
 }

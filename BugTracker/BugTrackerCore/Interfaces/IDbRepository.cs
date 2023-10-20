@@ -7,6 +7,7 @@ namespace BugTrackerCore.Interfaces
         List<Error> GetErrors(Guid appId, IEnumerable<Error> errors);
         List<Application> GetApplications(string userId,IEnumerable<Application> applications);
         Application GetApplication(string userId, Guid appId);
+        Application GetApplicationByName(string userId, string appName);
         void AddApplication(Application applicationName);
         void AddError(Error exception);
         void UpdateApplication(Application application);

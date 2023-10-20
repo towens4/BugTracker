@@ -4,7 +4,7 @@
 
 @model IEnumerable<ApplicationViewModel>
 
-<div>
+<div class="dropdown-container">
 
     <div class="dropdown show">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -23,7 +23,8 @@
                 /**
 
                 */
-                <a class="dropdown-item application-container col-8" href="@Url.ActionLink("ErrorList", "Error", new{applicationId = item.ApplicationId})">
+                <a class="dropdown-item application-container col-8" href="@Url.ActionLink("ErrorContainer", "Error", new{applicationId = item.ApplicationId})">
+                    <p id="applicationId" hidden value=@item.ApplicationId></p>
                     <p class="application-item">@item.ApplicationName</p>
                     <span id="application-edit" class="application-edit">Edit</span>
                 </a>

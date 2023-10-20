@@ -99,10 +99,9 @@ namespace BugTrackerAPICall.APICall
 
             if (exception != null)
                 url = ($"https://localhost:7240/api/error/addError/exception");
-            //var newException = new SerializableException(exception);
+            
             var newException = JsonConvert.SerializeObject(exception);
-            //var applilcationModelName = new BugTrackerUI.Models.ViewModels.ApplicationNameInputModel();
-            //string json = JsonSerializer.Serialize(newException);
+            
             var error = Helper.ConvertToErrorObject.Convert(exception);
             error.MethodName = callerMethod;
             var postModel = new ErrorPostModel()

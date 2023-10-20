@@ -31,6 +31,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/timow/Documents/GitHub/BugTracker/BugTrackerUI/BugTrackerUI/Views/Error/ErrorContainer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcRXJyb3JDb250YWluZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/timow/Documents/GitHub/BugTracker/BugTrackerUI/BugTrackerUI/Views/Error/ErrorList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcRXJyb3JMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -45,6 +49,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/timow/Documents/GitHub/BugTracker/BugTrackerUI/BugTrackerUI/Views/Shared/Components/Application/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQXBwbGljYXRpb25cRGVmYXVsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/timow/Documents/GitHub/BugTracker/BugTrackerUI/BugTrackerUI/Views/Shared/Components/ErrorList/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcRXJyb3JMaXN0XERlZmF1bHQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/timow/Documents/GitHub/BugTracker/BugTrackerUI/BugTrackerUI/Views/Shared/_LoginPartial.cshtml]

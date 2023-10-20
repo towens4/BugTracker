@@ -1,7 +1,10 @@
 ﻿using BugTrackerCore.Helper;
 using BugTrackerCore.Interfaces;
 using BugTrackerCore.Models;
+using BugTrackerCore.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR.Client;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,25 +14,25 @@ namespace BugTracker.Controllers
     [ApiController]
     public class ErrorController : ControllerBase
     {
-        /**
-         * Name added to lIst
-         * The below variable resets the list to 0;
-         * */
+        
         
         private readonly IDbRepository _repository;
         private readonly ILocalRepository _localRepo;
+        private readonly HubConnectionManager _hubConnectionManager;
 
-        public ErrorController(IDbRepository repository, ILocalRepository localRepo)
+        public ErrorController(IDbRepository repository, ILocalRepository localRepo, HubConnectionManager hubConnectionManager)
         {
             
             _repository = repository;
             _localRepo = localRepo;
+            _hubConnectionManager = hubConnectionManager;
+            
         }
         // GET: api/<ErrorController>
         [HttpGet("getApplications/{userId}")]
         public IEnumerable<Application> Get(string userId)
         {
-            List<Application> apps = null;
+            List<Application> apps = new List<Application>();
             List<Application> tempApps = new List<Application>();
             var appNames = _localRepo.GetAppNames();
             try
@@ -57,7 +60,7 @@ namespace BugTracker.Controllers
             try
             {
                 //Guid applicationId = Guid.Parse(applicationId);
-                List<Error> errors = null;
+                List<Error> errors = new List<Error>();
 
                 Application dbApp = _repository.GetApplication(_localRepo.UserId, applicationId);
                 List<ErrorPostModel> errorPostModels = _localRepo.GetErrorPostModels();
@@ -94,16 +97,52 @@ namespace BugTracker.Controllers
         }
 
         [HttpPost("addError/{error}")]
-        public void post([FromBody] ErrorPostModel error)
+        public async Task post([FromBody] ErrorPostModel error)
         {
-            if(_localRepo.UserId != "" && _localRepo.GetAppNames().Contains(error.ApplicationName) == false)
+            Application dbApp = new Application();
+
+            error.ErrorModel.ErrorId = Guid.NewGuid();
+            //await _hubConnectionManager.StartConnectionAsync();
+
+            bool appNameExists = _localRepo.GetAppNames().Contains(error.ApplicationName);
+            bool userIdIsEmpty = string.IsNullOrWhiteSpace(_localRepo.UserId);
+            /*
+             * If user id is empty and the local app names list doesn't contain the app name
+             * */
+            
+            if(userIdIsEmpty == false) 
+                await _hubConnectionManager.StartConnectionAsync();
+            else 
+                await _hubConnectionManager.StopConnectionAsync();
+
+            //if user id doesn't exist and appname doesn't exist add errot to local repo
+            if (userIdIsEmpty == false && appNameExists == false)
             {
                 _localRepo.AddErrorPostModel(error);
-                _localRepo.setError(error.ErrorModel);
+                _localRepo.AddAppName(error.ApplicationName);
+                await _hubConnectionManager.SendAppSignal();
                 return;
             }
 
-            _repository.AddError(error.ErrorModel);
+            //checks if application name existss in appNameList
+            if (appNameExists == false)
+            {
+                _localRepo.AddErrorPostModel(error);
+                _localRepo.AddAppName(error.ApplicationName);
+            }
+                
+               
+            if (userIdIsEmpty == false)
+            {
+                //Add hubConnection send error
+                dbApp = _repository.GetApplicationByName(_localRepo.UserId, error.ApplicationName);
+
+                error.ErrorModel.ApplicationId = dbApp.ApplicationId;
+                await _hubConnectionManager.SendError(error);
+                _repository.AddError(error.ErrorModel);
+                await _hubConnectionManager.SendAppSignal();
+            }
+
             //_repository.AddError(error.ErrorModel);
         }
 

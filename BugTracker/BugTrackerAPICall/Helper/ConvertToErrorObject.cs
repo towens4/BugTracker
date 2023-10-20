@@ -15,7 +15,7 @@ namespace BugTrackerAPICall.Helper
         {
             Error error = new Error()
             {
-                ErrorId = new Guid(),
+                //ErrorId = Guid.NewGuid(),
                 Exception = exception.GetType().ToString(),
                 ErrorDetails = exception.Message,
                 Resolved = false,

@@ -1,8 +1,5 @@
 ﻿using BugTrackerCore.Interfaces;
-using System.Linq;
 //using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BugTrackerCore.Models
 {
@@ -23,13 +20,14 @@ namespace BugTrackerCore.Models
             
         }
 
-        public void AddError(Error exception)
+        public async void AddError(Error exception)
         {
             bool exists = _dbContext.Error.Any(error => error.ErrorId == exception.ErrorId &&
             error.ApplicationId == exception.ApplicationId && error.MethodName == exception.MethodName);
 
             if (!exists)
             {
+                
                 _dbContext.Error.Add(exception);
                 _dbContext.SaveChanges();
             }
@@ -116,6 +114,11 @@ namespace BugTrackerCore.Models
         {
             //var currentApp = _dbContext.Application.FirstOrDefault(app => app.ApplicationId == appId && app.UserId == userId);
             return _dbContext.Application.FirstOrDefault(app => app.ApplicationId == appId && app.UserId == userId);
+        }
+
+        public Application GetApplicationByName(string userId, string appName)
+        {
+            return _dbContext.Application.FirstOrDefault(app => app.UserId == userId && app.ApplicationName == appName);
         }
     }
 }
