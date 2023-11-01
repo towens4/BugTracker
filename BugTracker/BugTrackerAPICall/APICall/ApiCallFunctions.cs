@@ -175,5 +175,24 @@ namespace BugTrackerAPICall.APICall
             using var response = await client.PostAsync(baseUrl, applicationJson);
 
         }
+
+        public async void UpdateCompletionStatus(IHttpClientFactory httpClient, CompletedModel completed)
+        {
+            string url = $"https://localhost:7240/api/error/updateCompletionStatus/{completed}";
+
+            var errorJson = new StringContent(System.Text.Json.JsonSerializer.Serialize(completed), Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
+
+            var client = httpClient.CreateClient();
+            using var response = await client.PutAsync(url, errorJson);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Success");
+            }
+            else
+            {
+                Console.WriteLine("Error");
+            }
+        }
     }
 }

@@ -74,16 +74,76 @@ $(document).ready(function () {
         console.error(err.toString());
     })
 
-    
+    /*$('#registerSubmit').on('click', function () {
 
-    AJAXRequest("GET","/Error/PostUserId", null, null, function ()
+        dataModel = {
+            Email: $('#emailField').val(),
+            Password: $('#passwordField').val(),
+            ConfirmPassword: $('#confirmPasswordField').val()
+        }
+        console.log(dataModel);
+        AJAXRequest("POST", "/Account/Register", dataModel, null, function () {
+            console.log("Register Successful")
+        }, function (jqXHR, textStatus, errorThrown) {
+            console.log('POST error: ', textStatus, errorThrown, jqXHR)
+        })
+    })*/
+
+    /*AJAXRequest("GET","/Error/PostUserId", null, null, function ()
     {
         console.log("Post Success");
     }, function () {
         console.log("Post unsuccessful")
+    })*/
+    
+
+    if ($('.table').length)
+    {
+        $('.table > tbody > tr').each(function () {
+            const checkbox = $(this).find('.checkbox');
+            
+            const isChecked = $(checkbox).prop('checked');
+
+            if (isChecked)
+                $(this).addClass('table-success');
+
+            
+        })
+    }
+
+    $('.checkbox').change(function () {
+        console.log("Checkbox clicked")
+        var row = $(this).closest('tr');
+        const isChecked = $(this).prop('checked');
+        const errorId = $(this).data('id');
+
+        const model =
+        {
+            ErrorId: errorId,
+            IsCompleted: isChecked
+        }
+
+        AJAXRequest("PUT", "/Error/UpdateCompletionStatus", model, null, function (result) {
+            console.log("Updated")
+        }, function (error) {
+            console.log("Failure to update")
+        });
+
+        if (isChecked)
+            $(row).addClass('table-success');
+        else
+            $(row).removeClass('table-success')
     })
 
-    //Gets applicationId from selected application
+    /*if ($('.table').exists())
+    {
+        //get checked checkbox in current row 
+        if ($('#checked').val() == 'true')
+        {
+            
+        }
+    }*/
+
     $(".dropdown-item").on('click', function () {
         currentApplication = $(this).find("#applicationId").val();
     })

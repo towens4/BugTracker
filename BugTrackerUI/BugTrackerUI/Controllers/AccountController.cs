@@ -29,9 +29,9 @@ namespace BugTrackerUI.Controllers
          Create Login and register page
          
          */
-
+        [Route("Account/Register")]
         [HttpPost]
-        public async Task<IActionResult> Regsiter(RegisterViewModel register)
+        public async Task<IActionResult> Register(RegisterViewModel register)
         {
             if (ModelState.IsValid)
             {
@@ -54,7 +54,6 @@ namespace BugTrackerUI.Controllers
 
 
             }
-
             return View(register);
         }
 

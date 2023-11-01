@@ -152,6 +152,14 @@ namespace BugTracker.Controllers
             _localRepo.UserId = userId;
         }
 
+        [HttpPut("updateCompletionStatus/{completed}")]
+        public void put([FromBody] CompletedModel completed)
+        {
+            Error error = _repository.GetError(completed.ErrorId);
+            error.Resolved = completed.IsCompleted;
+            _repository.UpdateError(error);
+        }
+
         // PUT api/<ErrorController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)

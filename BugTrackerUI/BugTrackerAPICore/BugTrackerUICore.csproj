@@ -17,7 +17,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Reference Include="BugTrackerAPICall">
       <HintPath>..\..\BugTracker\BugTrackerAPICall\bin\Debug\net6.0\BugTrackerAPICall.dll</HintPath>

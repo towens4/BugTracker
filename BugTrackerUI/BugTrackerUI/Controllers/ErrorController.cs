@@ -151,6 +151,11 @@ namespace BugTrackerUI.Controllers
             //return View();
         }
 
-        
+        public void UpdateCompletionStatus([FromBody] BugTrackerCore.Models.CompletedModel completedModel)
+        {
+            _httpMethods.UpdateCompletionStatus(_httpClient, completedModel);
+        }
+
+
     }
 }

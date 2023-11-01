@@ -107,7 +107,8 @@ namespace BugTrackerCore.Models
 
         public void UpdateError(Error exception)
         {
-            throw new NotImplementedException();
+            _dbContext.Error.Update(exception);
+            _dbContext.SaveChanges();
         }
 
         public Application GetApplication(string userId, Guid appId)
@@ -119,6 +120,11 @@ namespace BugTrackerCore.Models
         public Application GetApplicationByName(string userId, string appName)
         {
             return _dbContext.Application.FirstOrDefault(app => app.UserId == userId && app.ApplicationName == appName);
+        }
+
+        public Error GetError(Guid errorId)
+        {
+            return _dbContext.Error.FirstOrDefault(error => error.ErrorId == errorId);
         }
     }
 }

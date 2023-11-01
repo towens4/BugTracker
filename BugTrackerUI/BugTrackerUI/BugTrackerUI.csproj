@@ -24,16 +24,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="BugTrackerAPICall">
       <HintPath>..\..\BugTracker\BugTrackerAPICall\bin\Debug\net6.0\BugTrackerAPICall.dll</HintPath>
     </Reference>
     <Reference Include="BugTrackerCore">
-      <HintPath>..\..\BugTracker\BugTrackerAPICall\bin\Debug\net6.0\BugTrackerCore.dll</HintPath>
+      <HintPath>..\..\BugTracker\BugTrackerCore\bin\Debug\net6.0\BugTrackerCore.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\" />
   </ItemGroup>
 
 </Project>

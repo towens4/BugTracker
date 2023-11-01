@@ -64,5 +64,10 @@ namespace BugTrackerUI.Controllers
         {
             return ViewComponent("Application");
         }
+
+        public IActionResult NoApplication()
+        {
+            return View();
+        }
     }
 }

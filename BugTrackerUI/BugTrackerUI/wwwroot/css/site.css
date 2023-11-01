@@ -36,3 +36,12 @@ body {
 .application-edit{
     display:none;
 }
+
+.table-row:hover{
+    background-color: hsl(0, 0%, 70%)
+}
+
+.completed{
+    background-color: hsl(0, 0%, 45%);
+
+}

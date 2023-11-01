@@ -14,8 +14,7 @@
         <div id="applicationDropdown" class="dropdown-menu row" aria-labelledby="dropdownMenuLink">
             @if(Model.Count() == 0)
             {
-                <a id="addApplicationDropdown" class="dropdown-item col-10" href="">Add</a>
-                <!--<input id="applicationInput" hidden/>-->
+                <p>No applications, see <a href="@Url.ActionLink("NoApplication", "Application")">No apps.</a> For details</p>
             }
 
             @foreach (var item in Model)
@@ -31,8 +30,8 @@
                 <!--<button id="applicationEdit" class="application-edit btn-light col-4">Edit</button>-->
 
             }
-            <a id="addApplicationDropdown" class="dropdown-item col-10">Add</a>
-            <!--<input id="applicationInput" hidden/>-->
+            
+           
         </div>
     </div>
         

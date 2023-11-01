@@ -20,6 +20,7 @@
         }
         @foreach (var error in Model)
         {
+            
             <tr class="table-row">
                 <th scope="row" class="row-number">1</th>
                 <td class="row-exception">@error.Exception</td>
@@ -27,17 +28,10 @@
                 <td class="row-file-location">@error.FileLocation</td>
                 <td class="row-file-line">@error.FileLine</td>
                 <td class="row-error-details">@error.ErrorDetails</td>
-                <td class="row-checkbox"><input type="checkbox" /></td>
+                <td class="row-checkbox"><input asp-for="@error.Resolved" class="checkbox" data-id="@error.ErrorId" type="checkbox" /></td>
             </tr>
         }
-        <tr>
-            <th scope="row">1</th>
-            <td>Exception</td>
-            <td>User Application</td>
-            <td>310</td>
-            <td>Issue with value</td>
-            <td><input type="checkbox" /></td>
-        </tr>
+        
     </tbody>
 </table>
 <a>@Html.ActionLink("Demo Error", "ErrorTest", "Error")</a>
