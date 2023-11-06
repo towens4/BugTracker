@@ -45,3 +45,27 @@ body {
     background-color: hsl(0, 0%, 45%);
 
 }
+
+.pagination-direction{
+    padding:0.5em;
+    background-color: hsl(207, 100%, 60%);
+    border-radius: 5px;
+}
+
+.direction-disabled{
+    background-color: hsl(0, 0%, 85%);
+    color: hsl(0, 0%, 95%);
+}
+
+.page{
+    background-color: hsl(207, 100%, 70%);
+    border-radius: 5px;
+    padding: 0.5em;
+    text-decoration: none;
+    margin: 0 0.2em;
+}
+
+.active {
+    background-color: hsl(207, 100%, 55%);
+    color: hsl(0, 0%, 100%)
+}

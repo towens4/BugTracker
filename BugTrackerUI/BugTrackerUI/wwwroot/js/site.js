@@ -5,6 +5,144 @@
 
 $(document).ready(function () {
 
+    var rowsShown = 10;
+    var rowsTotal = $('.table-body tr').length;
+    var numPages = Math.ceil(rowsTotal / rowsShown);
+
+    function SetDirectionButtons(pageList, currentPage)
+    {
+        currentPage = parseInt(currentPage) + 1;
+        if (pageList.length > 2) {
+            $(pageList).each(function (index, page) {
+                if (currentPage != pageList[index] && currentPage != pageList[pageList.length - 1]) {
+                    $('.pagination-direction').removeClass('direction-disabled');
+                    /*$('.pagination-direction').on('click', function () {
+                        DirectionalButtonEvent(this)
+                    })*/
+                }
+            })
+        }
+
+        if (currentPage == 1)
+            pageNumMapper[currentPage]();
+        else if (currentPage == numPages)
+            pageNumMapper.numPages();
+    }
+
+    function TransisionPage(startItem, endItem)
+    {
+        $('.table-body tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+            css('display', 'table-row').animate({ opacity: 1 }, 300);
+    }
+
+    function DirectionalButtonEvent(button)
+    {
+
+        
+        var currentDirection = $(button).data('direction');
+        var currentPage = $('#nav a').hasClass('active') ? $("#nav a.active").attr('rel') : "";
+        /*if ($('#nav a').hasClass('active'))
+            currentPage = $("#nav a.active").attr('rel');*/
+
+        console.log("string current page: ", currentPage);
+        var tempCurrentPage = (parseInt(currentPage) + 1);
+        console.log(tempCurrentPage);
+        console.log('current direction: ', currentDirection);
+        const pageList = $('#nav a');
+
+
+        
+            if (currentDirection == 'Next' && tempCurrentPage < numPages) {
+                //currentPage = (parseInt(currentPage) + 1);
+                currentPage = (parseInt(currentPage) + 1);
+                var startItem = currentPage * rowsShown;
+                
+                var endItem = startItem + rowsShown;
+                $('#nav a').removeClass('active');
+                $(pageList[(tempCurrentPage - 1) + 1]).addClass('active');
+                TransisionPage(startItem, endItem)
+                
+            }
+            var previous = currentDirection == 'Previous' && tempCurrentPage >= 1;
+            console.log("Is previous: ", previous);
+            if (currentDirection == 'Previous' && tempCurrentPage > 1) {
+                //currentPage = (parseInt(currentPage) + 1)
+                currentPage = (parseInt(currentPage) - 1);
+                var startItem = currentPage * rowsShown;
+                var endItem = startItem + rowsShown;
+                $('#nav a').removeClass('active');
+                $(pageList[(tempCurrentPage - 1)- 1]).addClass('active');
+                TransisionPage(startItem, endItem);
+               
+            }
+
+        SetDirectionButtons(pageList, currentPage);
+    }
+
+    $('.table').after('<div id="nav"></div>');
+    $('#nav').append('<span id="paginationNext" class="pagination-direction" data-direction="Previous">Previous</span>')
+    for (i = 0; i < numPages; i++) {
+        var pageNum = i + 1;
+        $('#nav').append('<a href="#" class="page" rel="' + i + '">' + pageNum + '</a> ');
+    }
+    $('#nav').append('<span id="paginationPrevious" class="pagination-direction" data-direction="Next">Next</span>')
+    $('.table-body tr').hide();
+    $('.table-body tr').slice(0, rowsShown).show();
+    $('#nav a:first').addClass('active');
+    $('#nav a').bind('click', function () {
+        const pageList = $('#nav a');
+        $('#nav a').removeClass('active');
+        $(this).addClass('active');
+        var currPage = $(this).attr('rel');
+        var startItem = currPage * rowsShown;
+        var endItem = startItem + rowsShown;
+        //currentPage = currPage;
+        SetDirectionButtons(pageList, currPage);
+
+        TransisionPage(startItem, endItem);
+        
+        /*$('.table-body tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+            css('display', 'table-row').animate({ opacity: 1 }, 300);*/
+    });  
+    var currentDirection = "";
+    var currentPage = $("#nav a").attr('rel') == '0' ? parseInt($("#nav a").attr('rel')) + 1 : parseInt($("#nav a").attr('rel'));
+
+    const pageNumMapper =
+    {
+        1: () =>
+        {
+
+            $('.pagination-direction[data-direction="Previous"]').addClass('direction-disabled')
+            //$('#paginationPrevious').off('click');
+            $('.pagination-direction[data-direction="Next"]').removeClass('direction-disabled')
+            /*$('#paginationNext').on('click', function () {
+                DirectionalButtonEvent(this)
+            });*/
+        },
+        numPages: () =>
+        {
+            $('.pagination-direction[data-direction="Next"]').addClass('direction-disabled')
+            //$('#paginationNext').off('click');
+            $('.pagination-direction[data-direction="Previous"]').removeClass('direction-disabled')
+            /*$('#paginationPrevious').on('click', function () {
+                DirectionalButtonEvent(this)
+            });*/
+        }
+    }
+
+    if (numPages == 1) {
+        $('.pagination-direction').addClass('direction-disabled')
+    }
+    else
+    {
+        pageNumMapper[currentPage]();
+    }
+
+    $('.pagination-direction').on('click', function () {
+        DirectionalButtonEvent(this)
+    })
+
+
     var url = window.location.href;
     const partialUrl = "/Error/ErrorContainer";
 
@@ -12,29 +150,7 @@ $(document).ready(function () {
     
      
     var currentApplication = "";
-    function createTableRow(errorModel)
-    {
-        /*var tableBody = $('.error-table');
-        var newRow = tableBody.insertRow();
-
-        //Gets row number
-        const lastRow = tableBody.rows(tableBody.rows.length - 1);
-        const rowNumber = lastRow.rowIndex;
-        newRow.insertCell(0).textContent = rowNumber
-
-        for (var key in errorModel)
-        {
-            const currentKey = errorModel.hasOwnProperty(key);
-            if (currentKey != "ApplicationId" || currentKey != "ErrorId")
-            {
-                const cell = newRow.insertCell();
-                cell.textContent = errorModel[key]
-            }
-            
-        }*/
-
-        var newRow = $('.table-row').clone().removeClass('table-row');
-    }
+  
 
     var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7240/BugTrackerHub").build();
 
@@ -74,28 +190,7 @@ $(document).ready(function () {
         console.error(err.toString());
     })
 
-    /*$('#registerSubmit').on('click', function () {
-
-        dataModel = {
-            Email: $('#emailField').val(),
-            Password: $('#passwordField').val(),
-            ConfirmPassword: $('#confirmPasswordField').val()
-        }
-        console.log(dataModel);
-        AJAXRequest("POST", "/Account/Register", dataModel, null, function () {
-            console.log("Register Successful")
-        }, function (jqXHR, textStatus, errorThrown) {
-            console.log('POST error: ', textStatus, errorThrown, jqXHR)
-        })
-    })*/
-
-    /*AJAXRequest("GET","/Error/PostUserId", null, null, function ()
-    {
-        console.log("Post Success");
-    }, function () {
-        console.log("Post unsuccessful")
-    })*/
-    
+   
 
     if ($('.table').length)
     {

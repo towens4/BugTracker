@@ -13,7 +13,7 @@
             <th scope="col">Resolved</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-body">
         @if (Model.Count() == 0 || !Model.Any())
         {
             <h2>There are no errors to display</h2>
@@ -34,7 +34,7 @@
         
     </tbody>
 </table>
-<a>@Html.ActionLink("Demo Error", "ErrorTest", "Error")</a>
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
