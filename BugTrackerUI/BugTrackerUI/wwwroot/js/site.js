@@ -9,16 +9,16 @@ $(document).ready(function () {
     var rowsTotal = $('.table-body tr').length;
     var numPages = Math.ceil(rowsTotal / rowsShown);
 
-    function SetDirectionButtons(pageList, currentPage)
+    PaginationModule.init(rowsTotal);
+
+    /*function SetDirectionButtons(pageList, currentPage)
     {
         currentPage = parseInt(currentPage) + 1;
         if (pageList.length > 2) {
             $(pageList).each(function (index, page) {
                 if (currentPage != pageList[index] && currentPage != pageList[pageList.length - 1]) {
                     $('.pagination-direction').removeClass('direction-disabled');
-                    /*$('.pagination-direction').on('click', function () {
-                        DirectionalButtonEvent(this)
-                    })*/
+                    
                 }
             })
         }
@@ -41,8 +41,7 @@ $(document).ready(function () {
         
         var currentDirection = $(button).data('direction');
         var currentPage = $('#nav a').hasClass('active') ? $("#nav a.active").attr('rel') : "";
-        /*if ($('#nav a').hasClass('active'))
-            currentPage = $("#nav a.active").attr('rel');*/
+        
 
         console.log("string current page: ", currentPage);
         var tempCurrentPage = (parseInt(currentPage) + 1);
@@ -53,7 +52,7 @@ $(document).ready(function () {
 
         
             if (currentDirection == 'Next' && tempCurrentPage < numPages) {
-                //currentPage = (parseInt(currentPage) + 1);
+                
                 currentPage = (parseInt(currentPage) + 1);
                 var startItem = currentPage * rowsShown;
                 
@@ -66,7 +65,7 @@ $(document).ready(function () {
             var previous = currentDirection == 'Previous' && tempCurrentPage >= 1;
             console.log("Is previous: ", previous);
             if (currentDirection == 'Previous' && tempCurrentPage > 1) {
-                //currentPage = (parseInt(currentPage) + 1)
+                
                 currentPage = (parseInt(currentPage) - 1);
                 var startItem = currentPage * rowsShown;
                 var endItem = startItem + rowsShown;
@@ -101,8 +100,7 @@ $(document).ready(function () {
 
         TransisionPage(startItem, endItem);
         
-        /*$('.table-body tr').css('opacity', '0.0').hide().slice(startItem, endItem).
-            css('display', 'table-row').animate({ opacity: 1 }, 300);*/
+        
     });  
     var currentDirection = "";
     var currentPage = $("#nav a").attr('rel') == '0' ? parseInt($("#nav a").attr('rel')) + 1 : parseInt($("#nav a").attr('rel'));
@@ -115,18 +113,14 @@ $(document).ready(function () {
             $('.pagination-direction[data-direction="Previous"]').addClass('direction-disabled')
             //$('#paginationPrevious').off('click');
             $('.pagination-direction[data-direction="Next"]').removeClass('direction-disabled')
-            /*$('#paginationNext').on('click', function () {
-                DirectionalButtonEvent(this)
-            });*/
+            
         },
         numPages: () =>
         {
             $('.pagination-direction[data-direction="Next"]').addClass('direction-disabled')
             //$('#paginationNext').off('click');
             $('.pagination-direction[data-direction="Previous"]').removeClass('direction-disabled')
-            /*$('#paginationPrevious').on('click', function () {
-                DirectionalButtonEvent(this)
-            });*/
+           
         }
     }
 
@@ -140,7 +134,7 @@ $(document).ready(function () {
 
     $('.pagination-direction').on('click', function () {
         DirectionalButtonEvent(this)
-    })
+    })*/
 
 
     var url = window.location.href;

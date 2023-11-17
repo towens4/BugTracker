@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "0qcVmYfv77nWjqvGWgHAot9K1ll2Bs//c8AGKcddrKs=",
+  "Hash": "TXWDmZyhLQiqCb6dlmeWHvIpr6JMqH2TPaXMNw9Q6Hs=",
   "Source": "BugTrackerUI",
   "BasePath": "_content/BugTrackerUI",
   "Mode": "Default",
@@ -1205,6 +1205,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\wwwroot\\js\\UIModules\\PaginationModule.js",
+      "SourceId": "BugTrackerUI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\wwwroot\\",
+      "BasePath": "_content/BugTrackerUI",
+      "RelativePath": "js/UIModules/PaginationModule.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\UIModules\\PaginationModule.js"
     },
     {
       "Identity": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTrackerUI\\BugTrackerUI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

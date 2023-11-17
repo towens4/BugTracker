@@ -115,8 +115,11 @@ namespace BugTracker.Controllers
             else 
                 await _hubConnectionManager.StopConnectionAsync();
 
+            ConnectionProcessingService connectionProcessingService = new ConnectionProcessingService(_localRepo, _hubConnectionManager, _repository);
+            connectionProcessingService.ProcessError(error, appNameExists, userIdIsEmpty);
+
             //if user id doesn't exist and appname doesn't exist add errot to local repo
-            if (userIdIsEmpty == false && appNameExists == false)
+            /*if (userIdIsEmpty == false && appNameExists == false)
             {
                 _localRepo.AddErrorPostModel(error);
                 _localRepo.AddAppName(error.ApplicationName);
@@ -141,9 +144,9 @@ namespace BugTracker.Controllers
                 await _hubConnectionManager.SendError(error);
                 _repository.AddError(error.ErrorModel);
                 await _hubConnectionManager.SendAppSignal();
-            }
+            }*/
 
-            //_repository.AddError(error.ErrorModel);
+            
         }
 
         [HttpPost("addUserId/{userId}")]

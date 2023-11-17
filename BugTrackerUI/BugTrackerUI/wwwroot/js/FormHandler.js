@@ -39,3 +39,4 @@ var setAjaxOptions = function(method, url, data, headers, successCallback, error
 
     return ajaxOptions;
 }
+
