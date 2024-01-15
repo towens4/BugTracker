@@ -17,8 +17,7 @@
           "Microsoft.Extensions.Http": "7.0.0",
           "Newtonsoft.Json": "13.0.3",
           "System.Net.Http.Json": "7.0.1",
-          "BugTrackerAPICall": "1.0.0.0",
-          "BugTrackerCore": "1.0.0.0"
+          "BugTrackerAPICall": "1.0.0.0"
         },
         "runtime": {
           "BugTrackerUICore.dll": {}
@@ -1309,14 +1308,6 @@
             "fileVersion": "1.0.0.0"
           }
         }
-      },
-      "BugTrackerCore/1.0.0.0": {
-        "runtime": {
-          "BugTrackerCore.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
       }
     }
   },
@@ -2230,11 +2221,6 @@
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
     "BugTrackerAPICall/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "BugTrackerCore/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

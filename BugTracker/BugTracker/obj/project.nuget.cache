@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bmiyIG9va640lwsT7Knxw0koVIVikE8eQkpb6jXjOLeAkv/Tp5htCbiTjiZyitzOwOrvU4okgsUNmSg/qwdUAw==",
+  "dgSpecHash": "kv6RrwtotCmKRn4Kfaz5K6o3ZzgiFwn7N/85G5NAc7vNnX1qniCT5FZ/TsUf+413z/q3V01hLXS/dPFITWxCSQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\timow\\Documents\\GitHub\\BugTracker\\BugTracker\\BugTracker\\BugTracker.csproj",
   "expectedPackageFiles": [
@@ -57,6 +57,7 @@
     "C:\\Users\\timow\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\timow\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\timow\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\timow\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\timow\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\timow\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\timow\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",

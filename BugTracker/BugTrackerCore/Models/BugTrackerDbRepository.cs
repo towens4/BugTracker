@@ -1,7 +1,9 @@
-﻿using BugTrackerCore.Interfaces;
+﻿using BugTrackerAPICall.Interfaces;
+using BugTrackerAPICall.Models;
+using BugTrackerAPICall.Interfaces;
 //using Microsoft.AspNetCore.Mvc;
 
-namespace BugTrackerCore.Models
+namespace BugTrackerAPICall.Models
 {
     public class BugTrackerDbRepository : IDbRepository
     {
@@ -11,24 +13,25 @@ namespace BugTrackerCore.Models
             _dbContext = dbContext;
         }
         
-        public void AddApplication(Application applicationToAdd)
+        public void AddApplication(IApplication applicationToAdd)
         {
             
-             _dbContext.Application.Add(applicationToAdd);
+             _dbContext.Application.Add((Application)applicationToAdd);
              _dbContext.SaveChanges();
             
             
         }
 
-        public async void AddError(Error exception)
+        public async void AddError(IError exception)
         {
             bool exists = _dbContext.Error.Any(error => error.ErrorId == exception.ErrorId &&
             error.ApplicationId == exception.ApplicationId && error.MethodName == exception.MethodName);
 
+            
             if (!exists)
             {
                 
-                _dbContext.Error.Add(exception);
+                _dbContext.Error.Add((Error)exception);
                 _dbContext.SaveChanges();
             }
             
@@ -49,29 +52,11 @@ namespace BugTrackerCore.Models
                     AddError(outerErrors);
                 }
             }
-            /*OutErrors.ForEach(outerErrors =>
-            {
-                if (!errors.Any(x => x.ApplicationId == outerErrors.ApplicationId && x.ErrorId == outerErrors.ErrorId && x.MethodName == outerErrors.MethodName))
-                {
-                    errors.Add(outerErrors);
-                    AddError(outerErrors);
-                }
-            });*/
-
-
-            /*foreach (var error in OutErrors)
-            {
-                //Check if any erros in the database match these conditions: ApplicationId, ErrorId and MethodName
-                if (errors.Any(x => x.ApplicationId == error.ApplicationId && x.ErrorId == error.ErrorId && x.MethodName == error.MethodName))
-                    continue;
-                errors.Add(error);
-                AddError(error);
-            }*/
 
             return errors;
         }
 
-        public List<Application> GetApplications(string userId, IEnumerable<Application> outApplications)
+        public List<Application> GetApplications(string userId, IEnumerable<IApplication> outApplications)
         {
             var applications = _dbContext.Application.Where(id => id.UserId == userId).ToList();
 
@@ -83,37 +68,28 @@ namespace BugTrackerCore.Models
                 //adds application to applications list if it doesn't exist
                 if (!applications.Any(apps => apps.UserId == outerApplication.UserId && apps.ApplicationName == outerApplication.ApplicationName))
                 {
-                    applications.Add(outerApplication);
+                    applications.Add((Application)outerApplication);
                     AddApplication(outerApplication);
                 }
             }
-            /*outApplications.ToList().ForEach(outerApplication =>
-            {
-                //adds application to applications list if it doesn't exist
-                if (!applications.Any(apps => apps.UserId == outerApplication.UserId && apps.ApplicationName == outerApplication.ApplicationName))
-                {
-                    applications.Add(outerApplication);
-                    AddApplication(outerApplication);
-                }
-            });*/
            
             return applications;
         }
 
-        public void UpdateApplication(Application application)
+        public void UpdateApplication(IApplication application)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateError(Error exception)
+        public void UpdateError(IError exception)
         {
-            _dbContext.Error.Update(exception);
+            _dbContext.Error.Update((Error)exception);
             _dbContext.SaveChanges();
         }
 
         public Application GetApplication(string userId, Guid appId)
         {
-            //var currentApp = _dbContext.Application.FirstOrDefault(app => app.ApplicationId == appId && app.UserId == userId);
+            
             return _dbContext.Application.FirstOrDefault(app => app.ApplicationId == appId && app.UserId == userId);
         }
 

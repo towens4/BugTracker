@@ -1,15 +1,17 @@
-﻿using BugTrackerUICore.Models.ViewModels;
+﻿using BugTrackerAPICall.Models;
+using BugTrackerUICore.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ErrorViewModel = BugTrackerUICore.Models.ViewModels.ErrorViewModel;
 
 namespace BugTrackerUICore.Helper
 {
     public class ErrorFactory
     {
-        public static ErrorViewModel CreateErrorViewModel(BugTrackerAPICall.Models.ErrorViewModel error)
+        public static ErrorViewModel CreateErrorViewModel(Error error)
         {
             return new ErrorViewModel()
             {
@@ -23,7 +25,7 @@ namespace BugTrackerUICore.Helper
                 Resolved = error.Resolved
             };
         }
-        public static List<ErrorViewModel> CreateErrorList(List<BugTrackerAPICall.Models.ErrorViewModel> errorViewModels)
+        public static List<ErrorViewModel> CreateErrorList(List<Error> errorViewModels)
         {
            return errorViewModels.Select(error => CreateErrorViewModel(error)).ToList();
         }

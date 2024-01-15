@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BugTrackerAPICall\BugTrackerAPICall.csproj" />
     <ProjectReference Include="..\BugTrackerCore\BugTrackerCore.csproj" />
   </ItemGroup>
 

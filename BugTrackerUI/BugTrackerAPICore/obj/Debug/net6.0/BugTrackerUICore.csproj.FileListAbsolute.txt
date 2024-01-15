@@ -7,8 +7,6 @@ C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerAPICore\bin\De
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerAPICore\bin\Debug\net6.0\BugTrackerUICore.runtimeconfig.json
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerAPICore\bin\Debug\net6.0\BugTrackerUICore.dll
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerAPICore\bin\Debug\net6.0\BugTrackerUICore.pdb
-C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerAPICore\bin\Debug\net6.0\BugTrackerCore.dll
-C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerAPICore\bin\Debug\net6.0\BugTrackerCore.pdb
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerAPICore\obj\Debug\net6.0\BugTrackerUICore.csproj.CopyComplete
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerAPICore\obj\Debug\net6.0\BugTrackerUICore.dll
 C:\Users\timow\Documents\GitHub\BugTracker\BugTrackerUI\BugTrackerAPICore\obj\Debug\net6.0\refint\BugTrackerUICore.dll

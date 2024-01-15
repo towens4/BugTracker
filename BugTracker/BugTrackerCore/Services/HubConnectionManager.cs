@@ -1,4 +1,5 @@
-﻿using BugTrackerCore.Models;
+﻿using BugTrackerAPICall.Interfaces;
+using BugTrackerAPICall.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -8,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BugTrackerCore.Services
+namespace BugTrackerAPICall.Services
 {
     public class HubConnectionManager
     {
@@ -57,7 +58,7 @@ namespace BugTrackerCore.Services
         }
 
 
-        public async Task SendError(ErrorPostModel errorPostModel)
+        public async Task SendError(IErrorPostModel errorPostModel)
         {
             try
             {

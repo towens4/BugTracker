@@ -1,6 +1,6 @@
-using BugTrackerCore.Interfaces;
-using BugTrackerCore.Models;
-using BugTrackerCore.Services;
+using BugTrackerAPICall.Interfaces;
+using BugTrackerAPICall.Models;
+using BugTrackerAPICall.Services;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore;
 

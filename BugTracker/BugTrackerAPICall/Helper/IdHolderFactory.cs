@@ -1,4 +1,4 @@
-﻿using BugTrackerCore.Models;
+﻿using BugTrackerAPICall.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

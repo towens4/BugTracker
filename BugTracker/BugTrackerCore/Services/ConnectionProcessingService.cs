@@ -1,12 +1,14 @@
-﻿using BugTrackerCore.Interfaces;
-using BugTrackerCore.Models;
+﻿using BugTrackerAPICall.Interfaces;
+using BugTrackerAPICall.Models;
+using BugTrackerAPICall.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BugTrackerAPICall.Interfaces;
 
-namespace BugTrackerCore.Services
+namespace BugTrackerAPICall.Services
 {
     public class ConnectionProcessingService : IConnectionProcessingService
     {
@@ -21,7 +23,7 @@ namespace BugTrackerCore.Services
             _repository = repository;
         }
 
-        public async void ProcessError(ErrorPostModel error, bool appNameExists, bool userIdIsEmpty)
+        public async void ProcessError(IErrorPostModel error, bool appNameExists, bool userIdIsEmpty)
         {
             //if user id doesn't exist and appname doesn't exist add errot to local repo
             if (!userIdIsEmpty && !appNameExists)
@@ -46,7 +48,7 @@ namespace BugTrackerCore.Services
             }
         }
 
-        private async void AddErrorToRepositoryAndSignal(ErrorPostModel error)
+        private async void AddErrorToRepositoryAndSignal(IErrorPostModel error)
         {
             _localRepo.AddErrorPostModel(error);
             _localRepo.AddAppName(error.ApplicationName);

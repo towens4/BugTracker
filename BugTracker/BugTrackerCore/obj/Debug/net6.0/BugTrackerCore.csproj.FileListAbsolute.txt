@@ -12,3 +12,6 @@ C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\n
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.pdb
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.genruntimeconfig.cache
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\ref\BugTrackerCore.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\bin\Debug\net6.0\BugTrackerAPICall.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\bin\Debug\net6.0\BugTrackerAPICall.pdb
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTrackerCore\obj\Debug\net6.0\BugTrackerCore.csproj.CopyComplete

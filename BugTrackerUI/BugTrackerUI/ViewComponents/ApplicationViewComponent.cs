@@ -7,7 +7,9 @@ using BugTrackerUICore.Helper;
 using System.Reflection;
 using System.Net.Http;
 using BugTrackerAPICall.APICall;
-using BugTrackerCore;
+using Microsoft.Extensions.Caching.Distributed;
+using BugTrackerUICore.Interfaces;
+using BugTrackerAPICall.Interfaces;
 
 namespace BugTrackerUI.ViewComponents
 {
@@ -17,12 +19,15 @@ namespace BugTrackerUI.ViewComponents
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IHttpMethods _httpMethods;
-        public ApplicationViewComponent(ApplicationDbContext context, UserManager<IdentityUser> userManager, IHttpClientFactory httpClientFactory, IHttpMethods httpMethods)
+        private readonly ICachingService _cachingService;
+        public ApplicationViewComponent(ApplicationDbContext context, UserManager<IdentityUser> userManager, 
+            IHttpClientFactory httpClientFactory, IHttpMethods httpMethods, ICachingService cachingService)
         {
             _context = context;
             _userManager = userManager;
             _httpClientFactory = httpClientFactory;
             _httpMethods = httpMethods;
+            _cachingService = cachingService;
         }
 
         [HttpGet]
@@ -32,30 +37,33 @@ namespace BugTrackerUI.ViewComponents
 
             try
             {
-                //throw new Exception();
                 IdentityUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
                 var userId = currentUser.Id;
-                List<ApplicationViewModel> applications = null;
-                /*if (await ApiHandler.PostAppName(_httpClientFactory, Assembly.GetExecutingAssembly().GetName().Name))
+                List<ApplicationViewModel> applications = new List<ApplicationViewModel>();
+
+
+                string currentApplication = Assembly.GetExecutingAssembly().GetName().Name;
+
+                var output = _cachingService.GetFromDistributedCache("UIApp");
+
+                if(string.IsNullOrEmpty(output))
                 {
-                    applications = await ApiHandler.GetApplications(_httpClientFactory, userId);
-                }*/
-                if (await _httpMethods.PostAppName(_httpClientFactory, Assembly.GetExecutingAssembly().GetName().Name))
-                {
-                    applications = new List<ApplicationViewModel>();
-                    var apiList = await _httpMethods.GetApplications(_httpClientFactory, userId);
-                    foreach (var app in apiList)
-                    {
-                        applications.Add(new ApplicationViewModel()
-                        {
-                            ApplicationId = app.ApplicationId,
-                            ApplicationName = app.ApplicationName,
-                            UserId = app.UserId,
-                        });
-                    }
-                    //applications = apiList.ToList();
+                    output = currentApplication;
+                    await _httpMethods.PostAppName(_httpClientFactory, currentApplication);
+                    _cachingService.SetInDistributedCache("UIApp", output);
                 }
-                //IEnumerable<ApplicationViewModel> applications = await ApiHandler.GetApplications(_httpClientFactory, userId);
+
+                var apiList = await _httpMethods.GetApplications(_httpClientFactory, userId);
+
+                foreach (var app in apiList)
+                {
+                    applications.Add(new ApplicationViewModel()
+                    {
+                        ApplicationId = app.ApplicationId,
+                        ApplicationName = app.ApplicationName,
+                        UserId = app.UserId,
+                    });
+                }
 
                 if (applications == null)
                     return View(new List<ApplicationViewModel>());

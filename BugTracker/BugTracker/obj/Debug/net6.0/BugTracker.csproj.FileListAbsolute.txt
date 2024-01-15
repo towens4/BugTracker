@@ -110,7 +110,6 @@ C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.0\BugTracker.AssemblyInfoInputs.cache
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.0\BugTracker.AssemblyInfo.cs
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.0\BugTracker.csproj.CoreCompileInputs.cache
-C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.0\BugTracker.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.0\BugTracker.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.0\staticwebassets.development.json
@@ -122,3 +121,7 @@ C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.0\BugTracker.genruntimeconfig.cache
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.0\ref\BugTracker.dll
 C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\bin\Debug\net6.0\Microsoft.Extensions.Http.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\bin\Debug\net6.0\BugTrackerAPICall.dll
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\bin\Debug\net6.0\BugTrackerAPICall.pdb
+C:\Users\timow\Documents\GitHub\BugTracker\BugTracker\BugTracker\obj\Debug\net6.0\BugTracker.MvcApplicationPartsAssemblyInfo.cs

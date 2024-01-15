@@ -1,5 +1,5 @@
 ﻿
-using BugTrackerCore;
+using BugTrackerAPICall.Interfaces;
 using BugTrackerUICore.Helper;
 using BugTrackerUICore.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;

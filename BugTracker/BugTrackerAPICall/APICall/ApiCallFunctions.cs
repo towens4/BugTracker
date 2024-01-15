@@ -7,13 +7,13 @@ using System.Net.Http;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
-using BugTrackerAPICall.Models;
 using Newtonsoft.Json;
 using System.Collections;
-using BugTrackerCore.Models;
-using BugTrackerCore.Interfaces;
+using BugTrackerAPICall.Interfaces;
 using System.Web;
-using BugTrackerCore;
+using BugTrackerAPICall.Helper;
+using BugTrackerAPICall.Models;
+using Application = BugTrackerAPICall.Models.Application;
 
 namespace BugTrackerAPICall.APICall
 {
@@ -51,7 +51,7 @@ namespace BugTrackerAPICall.APICall
             }
         }
 
-        public async void AddApplication(IHttpClientFactory httpClient, ApplicationViewModel application)
+        public async void AddApplication(IHttpClientFactory httpClient, IApplication application)
         {
             string url = "";
 
@@ -69,9 +69,9 @@ namespace BugTrackerAPICall.APICall
 
         }
 
-        public async Task<IEnumerable<ApplicationViewModel>> GetApplications(IHttpClientFactory httpClient, string userId)
+        public async Task<IEnumerable<Application>> GetApplications(IHttpClientFactory httpClient, string userId)
         {
-            List<ApplicationViewModel> applications = new List<ApplicationViewModel>();
+            List<Application> applications = new List<Application>();
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7240/api/error/getApplications/{userId}");
 
             var client = httpClient.CreateClient();
@@ -80,7 +80,7 @@ namespace BugTrackerAPICall.APICall
 
             if (response.IsSuccessStatusCode)
             {
-                applications = await response.Content.ReadFromJsonAsync<List<ApplicationViewModel>>();
+                applications = await response.Content.ReadFromJsonAsync<List<Application>>();
                 return applications;
             }
             else
@@ -109,10 +109,12 @@ namespace BugTrackerAPICall.APICall
                 ErrorModel = error,
                 ApplicationName = applicationName
             };
-            //var applicationJson = new StringContent(newException, Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
+
+            postModel.ErrorModel.FileLocation = StringExtractor.ExtractFilePath(postModel.ErrorModel.FileLocation, postModel.ApplicationName);
+            
             var applicationJson = new StringContent(System.Text.Json.JsonSerializer.Serialize(postModel), Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
 
-            //var request = new HttpRequestMessage(HttpMethod.Post, url);
+           
             
             var client = httpClient.CreateClient();
             client.DefaultRequestHeaders.Add("ApplicationName", applicationName);
@@ -131,14 +133,14 @@ namespace BugTrackerAPICall.APICall
             }
         }
 
-        public async Task<List<ErrorViewModel>> GetErrors(IHttpClientFactory httpClient, Guid applicationId)
+        public async Task<List<Error>> GetErrors(IHttpClientFactory httpClient, Guid applicationId)
         {
-           List<ErrorViewModel> errors = new List<ErrorViewModel>();
+           List<Error> errors = new List<Error>();
             
-            //var userId = idHolder.UserId;
+            
             string baseUrl = $"https://localhost:7240/api/error/getErrors/{applicationId}";
             
-            //string queryString = $"?applicationId={HttpUtility.UrlEncode(idHolder.ApplicationId.ToString())}&userId={HttpUtility.UrlEncode(idHolder.UserId)}";
+            
             
             
 
@@ -150,7 +152,7 @@ namespace BugTrackerAPICall.APICall
 
             if (response.IsSuccessStatusCode)
             {
-                errors = await response.Content.ReadFromJsonAsync<List<ErrorViewModel>>();
+                errors = await response.Content.ReadFromJsonAsync<List<Error>>();
                 return errors;
             }
             else

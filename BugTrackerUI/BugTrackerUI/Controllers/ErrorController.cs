@@ -1,7 +1,7 @@
 ﻿using BugTrackerAPICall.APICall;
 using BugTrackerAPICall.Helper;
-using BugTrackerCore;
-using BugTrackerCore.Models;
+using BugTrackerAPICall.Interfaces;
+
 using BugTrackerUICore.Helper;
 using BugTrackerUICore.Models;
 using BugTrackerUICore.Models.ViewModels;
@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore.Query.Internal;
 using Newtonsoft.Json;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using ErrorFactory = BugTrackerUICore.Helper.ErrorFactory;
 
 namespace BugTrackerUI.Controllers
 {
@@ -151,7 +152,7 @@ namespace BugTrackerUI.Controllers
             //return View();
         }
 
-        public void UpdateCompletionStatus([FromBody] BugTrackerCore.Models.CompletedModel completedModel)
+        public void UpdateCompletionStatus([FromBody] BugTrackerAPICall.Models.CompletedModel completedModel)
         {
             _httpMethods.UpdateCompletionStatus(_httpClient, completedModel);
         }

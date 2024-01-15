@@ -1,4 +1,6 @@
-﻿using BugTrackerCore.Interfaces;
+﻿
+
+using BugTrackerAPICall.Interfaces;
 
 namespace BugTrackerUI.Models.ViewModels
 {

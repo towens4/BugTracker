@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BugTrackerCore.Services
+namespace BugTrackerAPICall.Services
 {
     public class ShutdownService : IHostedService
     {

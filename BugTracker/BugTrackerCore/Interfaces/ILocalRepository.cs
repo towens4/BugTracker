@@ -1,17 +1,18 @@
-﻿using BugTrackerCore.Models;
+﻿using BugTrackerAPICall.Interfaces;
+using BugTrackerAPICall.Models;
 
-namespace BugTrackerCore.Interfaces
+namespace BugTrackerAPICall.Interfaces
 {
     public interface ILocalRepository
     {
         void AddAppName(string appName);
         List<string> GetAppNames();
-        List<Error> GetExceptionList();
-        List<ErrorPostModel> GetErrorPostModels();
-        void AddErrorPostModel(ErrorPostModel errorPostModel);
-        void setError(Error exception);
-        Error GetError();
-        void RemoveErrorPostModel(ErrorPostModel errorPostModel);
+        List<IError> GetExceptionList();
+        List<IErrorPostModel> GetErrorPostModels();
+        void AddErrorPostModel(IErrorPostModel errorPostModel);
+        void setError(IError exception);
+        IError GetError();
+        void RemoveErrorPostModel(IErrorPostModel errorPostModel);
         public string UserId { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using BugTrackerCore;
+﻿using BugTrackerAPICall.Interfaces;
 using BugTrackerUICore.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

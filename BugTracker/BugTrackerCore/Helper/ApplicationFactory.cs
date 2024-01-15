@@ -1,17 +1,19 @@
-﻿using BugTrackerCore.Models;
+﻿
+using BugTrackerAPICall.Interfaces;
+using BugTrackerAPICall.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BugTrackerCore.Helper
+namespace BugTrackerAPICall.Helper
 {
     public class ApplicationFactory
     {
-        public static Application CreateApplication(string userId, string applicationName)
+        public static IApplication CreateApplication(string userId, string applicationName)
         {
-            return new Application()
+            return new ApplicationViewModel()
             {
                 UserId = userId,
                 ApplicationName = applicationName,
@@ -19,7 +21,7 @@ namespace BugTrackerCore.Helper
             };
         }
 
-        public static List<Application> CreateApplicationList(List<string> applicationNames, string userId)
+        public static List<IApplication> CreateApplicationList(List<string> applicationNames, string userId)
         {
             /*List<Application> applicationList = new List<Application>();
 

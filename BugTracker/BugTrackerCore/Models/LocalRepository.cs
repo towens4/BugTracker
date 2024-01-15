@@ -1,13 +1,14 @@
-﻿using BugTrackerCore.Interfaces;
+﻿using BugTrackerAPICall.Interfaces;
+using BugTrackerAPICall.Interfaces;
 
-namespace BugTrackerCore.Models
+namespace BugTrackerAPICall.Models
 {
     public class LocalRepository : ILocalRepository
     {
         private List<string> _appNameList = new List<string>();
-        private List<Error> _exceptionList = new List<Error>();
-        private Error _exception;
-        private List<ErrorPostModel> _ErrorPostModel = new List<ErrorPostModel>();
+        private List<IError> _exceptionList = new List<IError>();
+        private IError _exception;
+        private List<IErrorPostModel> _ErrorPostModel = new List<IErrorPostModel>();
 
         public string UserId { get; set; } = "";
 
@@ -15,7 +16,7 @@ namespace BugTrackerCore.Models
         {
             _appNameList.Add(appName);
         }
-        public void AddException(Error exception)
+        public void AddException(IError exception)
         {
             _exceptionList.Add(exception);
         }
@@ -23,26 +24,26 @@ namespace BugTrackerCore.Models
         {
             return _appNameList;
         }
-        public List<ErrorPostModel> GetErrorPostModels() 
+        public List<IErrorPostModel> GetErrorPostModels() 
         { 
             return _ErrorPostModel; 
         }
-        public void AddErrorPostModel(ErrorPostModel errorPostModel)
+        public void AddErrorPostModel(IErrorPostModel errorPostModel)
         {
 
             _ErrorPostModel.Add(errorPostModel);
         }
-        public Error GetError()
+        public IError GetError()
         {
             return _exception;
         }
 
-        public void setError(Error exception)
+        public void setError(IError exception)
         {
             _exception = exception;    
         }
 
-        public List<Error> GetExceptionList()
+        public List<IError> GetExceptionList()
         {
             return _exceptionList;
         }
@@ -56,7 +57,7 @@ namespace BugTrackerCore.Models
 
         }
 
-        public void RemoveErrorPostModel(ErrorPostModel errorPostModel)
+        public void RemoveErrorPostModel(IErrorPostModel errorPostModel)
         {
             _ErrorPostModel.Remove(errorPostModel);
         }

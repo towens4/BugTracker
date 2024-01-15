@@ -4,8 +4,11 @@ using BugTrackerUICore.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using BugTrackerCore;
 using BugTrackerAPICall.APICall;
+using Microsoft.Extensions.Caching.Distributed;
+using BugTrackerUICore.Interfaces;
+using BugTrackerUICore.Services;
+using BugTrackerAPICall.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IHttpMethods, ApiCallFunctions>();
+builder.Services.AddScoped<ICachingService, CachingService>();
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.AddDistributedMemoryCache();
@@ -43,7 +47,13 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.Lifetime.ApplicationStarted.Register(() =>
+{
+    var currentTime = DateTime.Now.ToString();
+    byte[] encodedCurrentTime = System.Text.Encoding.UTF8.GetBytes(currentTime);
+    var options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(15));
+    app.Services.GetService<IDistributedCache>().Set("CachedTime", encodedCurrentTime, options);
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

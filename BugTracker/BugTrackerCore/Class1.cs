@@ -1,4 +1,4 @@
-﻿namespace BugTrackerCore
+﻿namespace BugTrackerAPICall
 {
     public class Class1
     {

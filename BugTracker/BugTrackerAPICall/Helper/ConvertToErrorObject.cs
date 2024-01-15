@@ -1,4 +1,5 @@
-﻿using BugTrackerCore.Models;
+﻿using BugTrackerAPICall.Interfaces;
+using BugTrackerAPICall.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -158,19 +158,3 @@ PaginationModule = {
     }
 }
 
-/*const pageNumMapper =
-{
-    1: () => {
-
-        $('.pagination-direction[data-direction="Previous"]').addClass('direction-disabled')
-        //$('#paginationPrevious').off('click');
-        $('.pagination-direction[data-direction="Next"]').removeClass('direction-disabled')
-        
-    },
-    numPages: () => {
-        $('.pagination-direction[data-direction="Next"]').addClass('direction-disabled')
-        //$('#paginationNext').off('click');
-        $('.pagination-direction[data-direction="Previous"]').removeClass('direction-disabled')
-        
-    }
-}*/

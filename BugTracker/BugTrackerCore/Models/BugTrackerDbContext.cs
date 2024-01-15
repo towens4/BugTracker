@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using BugTrackerAPICall.Models;
+using BugTrackerAPICall.Interfaces;
 
-namespace BugTrackerCore.Models
+namespace BugTrackerAPICall.Models
 {
     public class BugTrackerDbContext : DbContext
     {
