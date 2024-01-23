@@ -9,7 +9,7 @@ namespace BugTrackerAPICall.Models
 {
     public class ErrorPostModel : IErrorPostModel
     {
-        public IError ErrorModel { get; set; }
+        public Error ErrorModel { get; set; }
         public string ApplicationName { get; set; }
     }
 }

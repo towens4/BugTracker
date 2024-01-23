@@ -11,12 +11,13 @@ namespace BugTrackerAPICall.Interfaces
 {
     public interface IHttpMethods
     {
-        public void PostUserId(IHttpClientFactory httpClient, string userId);
-        public Task<bool> PostAppName(IHttpClientFactory httpClient, string applicationName);
-        public void AddApplication(IHttpClientFactory httpClient, IApplication application);
-        public Task<IEnumerable<Application>> GetApplications(IHttpClientFactory httpClient, string userId);
-        public Task<bool> AddError(IHttpClientFactory httpClient, Exception exception, string applicationName, string callerMethod);
-        public Task<List<Error>> GetErrors(IHttpClientFactory httpClient, Guid applicationId);
-        public void UpdateCompletionStatus(IHttpClientFactory httpClient, CompletedModel completed);
+        public void PostUserId(string userId);
+        public Task<bool> PostAppName(string applicationName);
+        public void AddApplication(IApplication application);
+        public Task<IEnumerable<Application>> GetApplications(string userId);
+        public Task<bool> AddError(Exception exception, string applicationName, string callerMethod);
+        public Task<List<Error>> GetErrors(Guid applicationId);
+        public void UpdateCompletionStatus(CompletedModel completed);
+        public Task<bool> TestHttpClient();
     }
 }

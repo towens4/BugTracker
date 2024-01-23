@@ -17,15 +17,13 @@ namespace BugTrackerUI.ViewComponents
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IHttpMethods _httpMethods;
         private readonly ICachingService _cachingService;
         public ApplicationViewComponent(ApplicationDbContext context, UserManager<IdentityUser> userManager, 
-            IHttpClientFactory httpClientFactory, IHttpMethods httpMethods, ICachingService cachingService)
+            IHttpMethods httpMethods, ICachingService cachingService)
         {
             _context = context;
             _userManager = userManager;
-            _httpClientFactory = httpClientFactory;
             _httpMethods = httpMethods;
             _cachingService = cachingService;
         }
@@ -42,6 +40,7 @@ namespace BugTrackerUI.ViewComponents
                 List<ApplicationViewModel> applications = new List<ApplicationViewModel>();
 
 
+
                 string currentApplication = Assembly.GetExecutingAssembly().GetName().Name;
 
                 var output = _cachingService.GetFromDistributedCache("UIApp");
@@ -49,11 +48,11 @@ namespace BugTrackerUI.ViewComponents
                 if(string.IsNullOrEmpty(output))
                 {
                     output = currentApplication;
-                    await _httpMethods.PostAppName(_httpClientFactory, currentApplication);
+                    await _httpMethods.PostAppName(currentApplication);
                     _cachingService.SetInDistributedCache("UIApp", output);
                 }
 
-                var apiList = await _httpMethods.GetApplications(_httpClientFactory, userId);
+                var apiList = await _httpMethods.GetApplications(userId);
 
                 foreach (var app in apiList)
                 {

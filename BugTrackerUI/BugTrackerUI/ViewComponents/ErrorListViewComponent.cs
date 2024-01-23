@@ -28,14 +28,9 @@ namespace BugTrackerUI.ViewComponents
             string applicationName = Assembly.GetExecutingAssembly().GetName().Name;
             List<ErrorViewModel> errorList = new List<ErrorViewModel>();
             try
-            {
-                //IdentityUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            {              
                 var userId = HttpContext.Session.GetString("Id");
-                //UserAccess.PostCurrentUser();
-                //IdHolderModel idHolder = IdHolderFactory.CreateIdHolder(userId, applicationId);
-
-
-                var errorApiList = await _httpMethods.GetErrors(_httpClient, applicationId);
+                var errorApiList = await _httpMethods.GetErrors(applicationId);
 
                 if (errorApiList == null || !errorApiList.Any())
                     return View(errorList);
@@ -47,7 +42,7 @@ namespace BugTrackerUI.ViewComponents
             }
             catch (Exception ex)
             {
-                await _httpMethods.AddError(_httpClient, ex, applicationName, BugTrackerAPICall.Helper.CallerMethod.GetCallerMethodName());
+                await _httpMethods.AddError(ex, applicationName, BugTrackerAPICall.Helper.CallerMethod.GetCallerMethodName());
                 return View(errorList);
             }
         }

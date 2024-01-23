@@ -19,9 +19,13 @@ namespace BugTrackerAPICall.APICall
 {
     public class ApiCallFunctions : IHttpMethods
     {
+        private readonly IHttpClientFactory _httpClientFactory;
+        public ApiCallFunctions(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
 
-
-        public async Task<bool> PostAppName(IHttpClientFactory httpClient, string applicationName)
+        public async Task<bool> PostAppName(string applicationName)
         {
             string url = "";
 
@@ -34,7 +38,7 @@ namespace BugTrackerAPICall.APICall
 
             //var request = new HttpRequestMessage(HttpMethod.Post, url);
 
-            var client = httpClient.CreateClient();
+            var client = _httpClientFactory.CreateClient();
 
 
             using var response = await client.PostAsync(url, applicationJson);
@@ -51,7 +55,7 @@ namespace BugTrackerAPICall.APICall
             }
         }
 
-        public async void AddApplication(IHttpClientFactory httpClient, IApplication application)
+        public async void AddApplication(IApplication application)
         {
             string url = "";
 
@@ -62,19 +66,19 @@ namespace BugTrackerAPICall.APICall
 
             var request = new HttpRequestMessage(HttpMethod.Post, url);
 
-            var client = httpClient.CreateClient();
+            var client = _httpClientFactory.CreateClient();
 
 
             using var response = await client.PostAsync(url, applicationJson);
 
         }
 
-        public async Task<IEnumerable<Application>> GetApplications(IHttpClientFactory httpClient, string userId)
+        public async Task<IEnumerable<Application>> GetApplications(string userId)
         {
             List<Application> applications = new List<Application>();
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7240/api/error/getApplications/{userId}");
 
-            var client = httpClient.CreateClient();
+            var client = _httpClientFactory.CreateClient();
 
             HttpResponseMessage response = await client.SendAsync(request);
 
@@ -90,7 +94,7 @@ namespace BugTrackerAPICall.APICall
 
         }
 
-        public async Task<bool> AddError(IHttpClientFactory httpClient, Exception exception, string applicationName, string callerMethod)
+        public async Task<bool> AddError(Exception exception, string applicationName, string callerMethod)
         {
             
 
@@ -99,8 +103,6 @@ namespace BugTrackerAPICall.APICall
 
             if (exception != null)
                 url = ($"https://localhost:7240/api/error/addError/exception");
-            
-            var newException = JsonConvert.SerializeObject(exception);
             
             var error = Helper.ConvertToErrorObject.Convert(exception);
             error.MethodName = callerMethod;
@@ -116,7 +118,7 @@ namespace BugTrackerAPICall.APICall
 
            
             
-            var client = httpClient.CreateClient();
+            var client = _httpClientFactory.CreateClient();
             client.DefaultRequestHeaders.Add("ApplicationName", applicationName);
 
             using var response = await client.PostAsync(url, applicationJson);
@@ -128,25 +130,47 @@ namespace BugTrackerAPICall.APICall
             }
             else
             {
-                Console.WriteLine("Error");
+                Console.WriteLine($"Error: {response.ReasonPhrase}");
+
+                
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Response Content: {responseContent}");
+
                 return false;
             }
         }
 
-        public async Task<List<Error>> GetErrors(IHttpClientFactory httpClient, Guid applicationId)
+        public async Task<bool> TestHttpClient()
         {
-           List<Error> errors = new List<Error>();
-            
-            
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var response = await client.GetAsync("https://www.example.com");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("HttpClient test succeeded!");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"HttpClient test failed. Status Code: {response.StatusCode}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception during HttpClient test: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<List<Error>> GetErrors(Guid applicationId)
+        {
+            List<Error> errors = new List<Error>();
             string baseUrl = $"https://localhost:7240/api/error/getErrors/{applicationId}";
-            
-            
-            
-            
-
             var request = new HttpRequestMessage(HttpMethod.Get, baseUrl);
-
-            var client = httpClient.CreateClient();
+            var client = _httpClientFactory.CreateClient();
 
             HttpResponseMessage response = await client.SendAsync(request);
 
@@ -161,30 +185,21 @@ namespace BugTrackerAPICall.APICall
             }
         }
 
-        public async void PostUserId(IHttpClientFactory httpClient, string userId)
+        public async void PostUserId(string userId)
         {
-            //ERROR: id not adding. 505 status code
-
             string baseUrl = $"https://localhost:7240/api/error/addUserId/{userId}";
-
             var applicationJson = new StringContent(System.Text.Json.JsonSerializer.Serialize(userId), Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
-
-            //var request = new HttpRequestMessage(HttpMethod.Post, baseUrl);
-
-            var client = httpClient.CreateClient();
-
+            var client = _httpClientFactory.CreateClient();
 
             using var response = await client.PostAsync(baseUrl, applicationJson);
-
         }
 
-        public async void UpdateCompletionStatus(IHttpClientFactory httpClient, CompletedModel completed)
+        public async void UpdateCompletionStatus(CompletedModel completed)
         {
             string url = $"https://localhost:7240/api/error/updateCompletionStatus/{completed}";
-
             var errorJson = new StringContent(System.Text.Json.JsonSerializer.Serialize(completed), Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
+            var client = _httpClientFactory.CreateClient();
 
-            var client = httpClient.CreateClient();
             using var response = await client.PutAsync(url, errorJson);
 
             if (response.IsSuccessStatusCode)

@@ -9,27 +9,24 @@ using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using IApplication = BugTrackerAPICall.Interfaces.IApplication;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace BugTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ErrorController : ControllerBase
     {
-        
-        
         private readonly IDbRepository _repository;
         private readonly ILocalRepository _localRepo;
+        private readonly IConnectionProcessingService _connectionProcessingService;
         private readonly HubConnectionManager _hubConnectionManager;
 
-        public ErrorController(IDbRepository repository, ILocalRepository localRepo, HubConnectionManager hubConnectionManager)
+        public ErrorController(IDbRepository repository, ILocalRepository localRepo, HubConnectionManager hubConnectionManager, IConnectionProcessingService connectionProcessingService)
         {
-            
+
             _repository = repository;
             _localRepo = localRepo;
             _hubConnectionManager = hubConnectionManager;
-            
+            _connectionProcessingService = connectionProcessingService;
         }
         // GET: api/<ErrorController>
         [HttpGet("getApplications/{userId}")]
@@ -101,13 +98,14 @@ namespace BugTracker.Controllers
         [HttpPost("addError/{error}")]
         public async Task post([FromBody] ErrorPostModel error)
         {
-            
 
+            
             error.ErrorModel.ErrorId = Guid.NewGuid();
             
 
             bool appNameExists = _localRepo.GetAppNames().Contains(error.ApplicationName);
             bool userIdIsEmpty = string.IsNullOrWhiteSpace(_localRepo.UserId);
+
             /*
              * If user id is empty and the local app names list doesn't contain the app name
              * */
@@ -117,8 +115,7 @@ namespace BugTracker.Controllers
             else 
                 await _hubConnectionManager.StopConnectionAsync();
 
-            IConnectionProcessingService connectionProcessingService = new ConnectionProcessingService(_localRepo, _hubConnectionManager, _repository);
-            connectionProcessingService.ProcessError(error, appNameExists, userIdIsEmpty);
+            _connectionProcessingService.ProcessError(error, appNameExists, userIdIsEmpty);
 
             
             

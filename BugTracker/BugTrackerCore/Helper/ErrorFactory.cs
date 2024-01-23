@@ -13,6 +13,9 @@ namespace BugTrackerAPICall.Helper
 {
     public class ErrorFactory
     {
+
+        
+
         public static List<Error> CreateTempErrorList(IApplication dbApp, Guid newApplicationId, List<IErrorPostModel> errorPostModels)
         {
             
@@ -24,9 +27,7 @@ namespace BugTrackerAPICall.Helper
         {
             return new Error()
             {
-                /**
-                 * Assigns the error to an app depending if the app name and app id match that of the database application
-                 * **/
+               
                 ApplicationId = (postModel.ApplicationName == dbApp.ApplicationName && newApplicationId == dbApp.ApplicationId)
                         ? newApplicationId
                         : postModel.ErrorModel.ApplicationId,

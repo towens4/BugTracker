@@ -83,7 +83,7 @@ namespace BugTrackerUI.Controllers
                 //IdHolderModel idHolder = IdHolderFactory.CreateIdHolder(userId, applicationId);
                 
                 
-                var errorApiList = await _httpMethods.GetErrors(_httpClient, applicationId);
+                var errorApiList = await _httpMethods.GetErrors(applicationId);
 
                 if (errorApiList == null || !errorApiList.Any())
                     return PartialView(errorList);
@@ -95,7 +95,7 @@ namespace BugTrackerUI.Controllers
             }
             catch (Exception ex)
             {
-                await _httpMethods.AddError(_httpClient, ex, applicationName, BugTrackerAPICall.Helper.CallerMethod.GetCallerMethodName());
+                await _httpMethods.AddError(ex, applicationName, BugTrackerAPICall.Helper.CallerMethod.GetCallerMethodName());
                 return View(errorList);
             }
         }
@@ -112,7 +112,7 @@ namespace BugTrackerUI.Controllers
             catch(Exception ex)
             {
 
-                await _httpMethods.AddError(_httpClient, ex, applicationName, BugTrackerAPICall.Helper.CallerMethod.GetCallerMethodName()) ;
+                await _httpMethods.AddError(ex, applicationName, BugTrackerAPICall.Helper.CallerMethod.GetCallerMethodName()) ;
             }
 
             return true;
@@ -130,7 +130,7 @@ namespace BugTrackerUI.Controllers
             if(!ModelState.IsValid)
                 return View();
 
-            ApiHandler.AddApplication(_httpClient, application);
+            ApiHandler.AddApplication(_httpClient ,application);
 
             return View();
         }
@@ -154,7 +154,7 @@ namespace BugTrackerUI.Controllers
 
         public void UpdateCompletionStatus([FromBody] BugTrackerAPICall.Models.CompletedModel completedModel)
         {
-            _httpMethods.UpdateCompletionStatus(_httpClient, completedModel);
+            _httpMethods.UpdateCompletionStatus(completedModel);
         }
 
 

@@ -31,6 +31,7 @@ namespace BugTrackerAPICall.Models
             if (!exists)
             {
                 
+                
                 _dbContext.Error.Add((Error)exception);
                 _dbContext.SaveChanges();
             }

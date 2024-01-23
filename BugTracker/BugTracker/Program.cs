@@ -48,8 +48,15 @@ builder.Services.AddCors(options =>
 //builder.Services.AddSingleton<IList<string>, List<string>>();
 
 builder.Services.AddScoped<IDbRepository, BugTrackerDbRepository>();
+
 builder.Services.AddSingleton<ILocalRepository, LocalRepository>();
 builder.Services.AddScoped<HubConnectionManager>();
+builder.Services.AddScoped<IConnectionProcessingService, ConnectionProcessingService>(provider =>
+    new ConnectionProcessingService(provider.GetRequiredService<ILocalRepository>(),
+    provider.GetRequiredService<HubConnectionManager>(), 
+    provider.GetRequiredService<IDbRepository>()));
+builder.Services.AddHttpMethods();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

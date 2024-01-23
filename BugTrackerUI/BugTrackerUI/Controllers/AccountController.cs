@@ -25,10 +25,6 @@ namespace BugTrackerUI.Controllers
             return View(new RegisterViewModel());
         }
 
-        /*
-         Create Login and register page
-         
-         */
         [Route("Account/Register")]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel register)
@@ -42,7 +38,7 @@ namespace BugTrackerUI.Controllers
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    _httpMethods.PostUserId(_httpClientFactory, user.Id.ToString());
+                    _httpMethods.PostUserId(user.Id.ToString());
                     HttpContext.Session.SetString("Id", user.Id.ToString());
                     return RedirectToAction("Index", "Error");
                 }
@@ -73,7 +69,7 @@ namespace BugTrackerUI.Controllers
 
                 if (result.Succeeded)
                 {
-                    _httpMethods.PostUserId(_httpClientFactory, userTask.Id.ToString());
+                    _httpMethods.PostUserId(userTask.Id.ToString());
                     HttpContext.Session.SetString("Id", userTask.Id.ToString());
                     
                     
@@ -88,9 +84,9 @@ namespace BugTrackerUI.Controllers
         public IActionResult LogOut()
         {
             _signInManager.SignOutAsync();
-            _httpMethods.PostUserId(_httpClientFactory, "");
+            _httpMethods.PostUserId("");
             HttpContext.Session.Remove("Id");
-            //assignmentListModel.AssignmentList.ToList().Clear();
+
             return RedirectToAction("LogIn", "Account");
         }
     }
