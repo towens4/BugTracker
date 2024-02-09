@@ -211,5 +211,23 @@ namespace BugTrackerAPICall.APICall
                 Console.WriteLine("Error");
             }
         }
+
+        public async void AuthenticateToken(string token)
+        {
+            string url = $"https://localhost:7240/api/error/authenticateToken/{token}";
+            var tokenJson = new StringContent(System.Text.Json.JsonSerializer.Serialize(token), Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
+            var client = _httpClientFactory.CreateClient();
+
+            using var response = await client.PostAsync(url, tokenJson);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Success");
+            }
+            else
+            {
+                Console.WriteLine("Error");
+            }
+        }
     }
 }

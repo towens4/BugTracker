@@ -19,5 +19,6 @@ namespace BugTrackerAPICall.Interfaces
         public Task<List<Error>> GetErrors(Guid applicationId);
         public void UpdateCompletionStatus(CompletedModel completed);
         public Task<bool> TestHttpClient();
+        public void AuthenticateToken(string token);
     }
 }

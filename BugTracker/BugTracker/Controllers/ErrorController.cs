@@ -19,14 +19,19 @@ namespace BugTracker.Controllers
         private readonly ILocalRepository _localRepo;
         private readonly IConnectionProcessingService _connectionProcessingService;
         private readonly HubConnectionManager _hubConnectionManager;
+        private readonly IEncryptionService _encryptionService;
+        private readonly IJwtHandler _jwtHandler;
 
-        public ErrorController(IDbRepository repository, ILocalRepository localRepo, HubConnectionManager hubConnectionManager, IConnectionProcessingService connectionProcessingService)
+        public ErrorController(IDbRepository repository, ILocalRepository localRepo, HubConnectionManager hubConnectionManager, 
+            IConnectionProcessingService connectionProcessingService, IEncryptionService encryptionService, IJwtHandler jwtHandler)
         {
 
             _repository = repository;
             _localRepo = localRepo;
             _hubConnectionManager = hubConnectionManager;
             _connectionProcessingService = connectionProcessingService;
+            _encryptionService = encryptionService;
+            _jwtHandler = jwtHandler;
         }
         // GET: api/<ErrorController>
         [HttpGet("getApplications/{userId}")]
@@ -133,6 +138,15 @@ namespace BugTracker.Controllers
             IError error = _repository.GetError(completed.ErrorId);
             error.Resolved = completed.IsCompleted;
             _repository.UpdateError(error);
+        }
+
+        [HttpPost("authenticateToken/{token}")]
+        public void AuthenticateToken([FromBody]string token)
+        {
+            byte[] tokenValue = _jwtHandler.ParseToken(token).ToTokenBytes();
+            string userId = _encryptionService.DecryptData(tokenValue);
+            
+            _localRepo.UserId = userId;
         }
 
         // PUT api/<ErrorController>/5

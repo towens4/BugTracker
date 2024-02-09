@@ -50,11 +50,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IDbRepository, BugTrackerDbRepository>();
 
 builder.Services.AddSingleton<ILocalRepository, LocalRepository>();
+builder.Services.AddSingleton<IJwtHandler, JwtHandler>();
 builder.Services.AddScoped<HubConnectionManager>();
 builder.Services.AddScoped<IConnectionProcessingService, ConnectionProcessingService>(provider =>
     new ConnectionProcessingService(provider.GetRequiredService<ILocalRepository>(),
     provider.GetRequiredService<HubConnectionManager>(), 
     provider.GetRequiredService<IDbRepository>()));
+builder.Services.AddScoped<IEncryptionService, EncryptionService>();
 builder.Services.AddHttpMethods();
 builder.Services.AddHttpClient();
 

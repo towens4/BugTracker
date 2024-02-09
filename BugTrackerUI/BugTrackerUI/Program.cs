@@ -9,6 +9,8 @@ using Microsoft.Extensions.Caching.Distributed;
 using BugTrackerUICore.Interfaces;
 using BugTrackerUICore.Services;
 using BugTrackerAPICall.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using BugTrackerAPICall.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IHttpMethods, ApiCallFunctions>();
 builder.Services.AddScoped<ICachingService, CachingService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IEncryptionService, EncryptionService>();
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.AddDistributedMemoryCache();
@@ -29,7 +33,14 @@ builder.Services.AddSession(options =>
 {
     options.Cookie.HttpOnly = true;
 });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
 
+        };
+    });
 
 
 
@@ -60,9 +71,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseAuthentication();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapRazorPages();
