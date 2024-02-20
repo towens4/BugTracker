@@ -11,12 +11,13 @@ namespace BugTrackerAPICall.Services
 {
     public class EncryptionService : IEncryptionService
     {
-        public string DecryptData(byte[] dataToDecrypt)
+        public string DecryptData(byte[] dataToDecrypt, string key)
         {
+            byte[] byteKey = Encoding.UTF8.GetBytes(key);
             string decryptedData;
             using(Aes aes = Aes.Create())
             {
-                decryptedData = DecryptStringFromBytes(dataToDecrypt, aes.Key, aes.IV);
+                decryptedData = DecryptStringFromBytes(dataToDecrypt, byteKey, aes.IV);
             }
 
             return decryptedData;
@@ -25,16 +26,27 @@ namespace BugTrackerAPICall.Services
         private string DecryptStringFromBytes(byte[] dataToDecrypt, byte[] key, byte[] iv)
         {
             string decryptedData;
+            byte[] decryptedDataStream;
+            byte[] newIV = new byte[16];
+            /**
+             *  FIX Issue: 
+             *  Byte list is different when converted from a string back to a byte list
+             * */
 
-            using(Aes aesInstance = Aes.Create())
+            using (Aes aesInstance = Aes.Create())
             {
                 aesInstance.Key = key;
-                aesInstance.IV = iv;
+                aesInstance.IV = newIV;
 
                 using(MemoryStream ms = new MemoryStream(dataToDecrypt))
                 {
                     using(CryptoStream cryptoStream = new CryptoStream(ms, aesInstance.CreateDecryptor(), CryptoStreamMode.Read))
                     {
+                        /*using(MemoryStream decryptedStream = new MemoryStream())
+                        {
+                            cryptoStream.CopyTo(decryptedStream);
+                            decryptedDataStream = decryptedStream.ToArray();
+                        }*/
                         using(StreamReader streamReader = new StreamReader(cryptoStream))
                         {
                             decryptedData = streamReader.ReadToEnd();
@@ -46,12 +58,13 @@ namespace BugTrackerAPICall.Services
             return decryptedData;
         }
 
-        public byte[] EncryptData(string dataToEncrypt)
+        public byte[] EncryptData(string dataToEncrypt, string key)
         {
+            byte[] byteKey = Encoding.UTF8.GetBytes(key);
             byte[] encryptedData;
             using(Aes aes = Aes.Create())
             {
-                encryptedData = EncryptStringToByte(dataToEncrypt, aes.Key, aes.IV);
+                encryptedData = EncryptStringToByte(dataToEncrypt, byteKey, aes.IV);
             }
 
             return encryptedData;
@@ -60,10 +73,12 @@ namespace BugTrackerAPICall.Services
         private byte[] EncryptStringToByte(string dataToEncrypt, byte[] key, byte[] iv)
         {
             byte[] encryptedData;
+            byte[] newIV = new byte[16];
+
             using(Aes aesInstance = Aes.Create())
             {
                 aesInstance.Key = key;
-                aesInstance.IV = iv;
+                aesInstance.IV = newIV;
 
                 using(MemoryStream memory = new MemoryStream())
                 {

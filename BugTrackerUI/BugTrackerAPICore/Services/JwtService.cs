@@ -24,21 +24,28 @@ namespace BugTrackerUICore.Services
         }
         public string GenerateJsonWebToken(string userName, string dataToSend)
         {
-            byte[] encyptedData = _encryptionService.EncryptData(dataToSend);
+
+            string cryptographyKey = _configuration["CryptographySettings:Key"];
+            byte[] encyptedData = _encryptionService.EncryptData(dataToSend, cryptographyKey);
             
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+            
+            //Check if both thw data sent is correct in the ui and api
+
+            string data = Convert.ToBase64String(encyptedData);
+
             var tokenclaims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userName),
-                new Claim("userId", encyptedData.ToString())
+                new Claim("userId", data)
             };
 
             var token = new JwtSecurityToken(_configuration["JwtSettings:Issuer"],
                 _configuration["JwtSettings:Audience"], 
                 tokenclaims, 
-                expires: DateTime.Now.AddMinutes(120), 
+                expires: DateTime.Now.AddSeconds(2), 
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

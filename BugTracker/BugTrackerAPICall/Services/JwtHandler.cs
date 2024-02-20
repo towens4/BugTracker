@@ -46,7 +46,7 @@ namespace BugTrackerAPICall.Services
         public byte[] ToTokenBytes()
         {
             string tokenValue = GetTokenValue();
-            return Encoding.UTF8.GetBytes(tokenValue);
+            return Convert.FromBase64String(tokenValue);
         }
 
         public bool isTokenExpired()

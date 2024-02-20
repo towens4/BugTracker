@@ -1,4 +1,5 @@
 ﻿using BugTrackerAPICall.Interfaces;
+using BugTrackerUICore.Interfaces;
 using BugTrackerUICore.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +12,15 @@ namespace BugTrackerUI.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IHttpMethods _httpMethods;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IJwtService _jwtService;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IHttpMethods httpMethods, IHttpClientFactory httpClientFactory)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IHttpMethods httpMethods, IHttpClientFactory httpClientFactory, IJwtService jwtService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _httpMethods = httpMethods;
             _httpClientFactory = httpClientFactory;
+            _jwtService = jwtService;
         }
 
         public IActionResult Register()
@@ -38,6 +41,8 @@ namespace BugTrackerUI.Controllers
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
+                    string token = _jwtService.GenerateJsonWebToken( user.UserName ,user.Id.ToString() );
+                    _httpMethods.AuthenticateToken(token);
                     _httpMethods.PostUserId(user.Id.ToString());
                     HttpContext.Session.SetString("Id", user.Id.ToString());
                     return RedirectToAction("Index", "Error");
@@ -69,6 +74,10 @@ namespace BugTrackerUI.Controllers
 
                 if (result.Succeeded)
                 {
+                    
+                    string token = _jwtService.GenerateJsonWebToken(userTask.UserName, userTask.Id.ToString());
+                    _httpMethods.AuthenticateToken(token);
+
                     _httpMethods.PostUserId(userTask.Id.ToString());
                     HttpContext.Session.SetString("Id", userTask.Id.ToString());
                     

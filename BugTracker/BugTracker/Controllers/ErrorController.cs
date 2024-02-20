@@ -21,9 +21,11 @@ namespace BugTracker.Controllers
         private readonly HubConnectionManager _hubConnectionManager;
         private readonly IEncryptionService _encryptionService;
         private readonly IJwtHandler _jwtHandler;
+        private readonly IConfiguration _configuration;
 
         public ErrorController(IDbRepository repository, ILocalRepository localRepo, HubConnectionManager hubConnectionManager, 
-            IConnectionProcessingService connectionProcessingService, IEncryptionService encryptionService, IJwtHandler jwtHandler)
+            IConnectionProcessingService connectionProcessingService, IEncryptionService encryptionService, IJwtHandler jwtHandler,
+            IConfiguration configuration)
         {
 
             _repository = repository;
@@ -32,6 +34,7 @@ namespace BugTracker.Controllers
             _connectionProcessingService = connectionProcessingService;
             _encryptionService = encryptionService;
             _jwtHandler = jwtHandler;
+            _configuration = configuration;
         }
         // GET: api/<ErrorController>
         [HttpGet("getApplications/{userId}")]
@@ -144,7 +147,13 @@ namespace BugTracker.Controllers
         public void AuthenticateToken([FromBody]string token)
         {
             byte[] tokenValue = _jwtHandler.ParseToken(token).ToTokenBytes();
-            string userId = _encryptionService.DecryptData(tokenValue);
+            string userId = _localRepo.UserId;
+
+            if (_jwtHandler.isTokenExpired() == false)
+            {
+                userId = _encryptionService.DecryptData(tokenValue, _configuration["CryptographySettings:Key"]);
+            }
+            
             
             _localRepo.UserId = userId;
         }
